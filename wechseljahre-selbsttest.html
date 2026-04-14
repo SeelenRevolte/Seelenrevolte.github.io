@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bin ich in den Wechseljahren? – Kostenloser Selbsttest | SeelenRevolte</title>
+  <meta name="description" content="Finde in 3 Minuten heraus, ob deine Symptome zur Perimenopause gehören – ehrlich, anonym, ohne erhobenen Zeigefinger. Kostenloser Test von SeelenRevolte." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:    #810947;
+      --primary-2:  #871d41;
+      --primary-light: #f5e0ea;
+      --bg:         #f8f2f0;
+      --text:       #332e3c;
+      --text-light: #5e5668;
+      --text-muted: #9a8f98;
+      --white:      #ffffff;
+      --border:     rgba(51,46,60,0.1);
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans:  'IBM Plex Sans', -apple-system, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.75;
+      font-size: 16px;
+    }
+
+    /* ── HEADER ─────────────────────────── */
+    .site-header {
+      background: var(--white);
+      border-bottom: 2px solid var(--primary);
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .site-header img { max-height: 52px; width: auto; display: block; }
+    .header-cta {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--primary);
+      text-decoration: none;
+      border: 1.5px solid var(--primary);
+      border-radius: 4px;
+      padding: 8px 18px;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .header-cta:hover { background: var(--primary); color: #fff; }
+
+    /* ── HERO ───────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, #1a0412 0%, var(--primary) 60%, #a0254e 100%);
+      color: var(--white);
+    }
+    .hero-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 80px 32px 72px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 30px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 5px 18px;
+      margin-bottom: 2rem;
+      color: rgba(255,255,255,0.9);
+    }
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5.5vw, 3.6rem);
+      font-weight: 700;
+      line-height: 1.18;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+    .hero h1 em { font-style: italic; font-weight: 400; color: rgba(255,255,255,0.85); }
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.18rem);
+      color: rgba(255,255,255,0.82);
+      max-width: 600px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.8;
+    }
+    .hero-tags {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2.75rem;
+    }
+    .hero-tag {
+      font-size: 12px;
+      padding: 5px 16px;
+      border-radius: 99px;
+      border: 1px solid rgba(255,255,255,0.3);
+      color: rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.08);
+      font-weight: 500;
+    }
+    .btn-hero {
+      display: inline-block;
+      background: var(--white);
+      color: var(--primary);
+      border: none;
+      border-radius: 5px;
+      padding: 17px 44px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      font-family: var(--sans);
+      letter-spacing: 0.01em;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+    }
+    .btn-hero:hover { background: #f0dce6; transform: translateY(-1px); box-shadow: 0 6px 28px rgba(0,0,0,0.25); }
+    .hero-note {
+      margin-top: 1.25rem;
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── DIVIDER ──────────────────────── */
+    hr.div { border: none; border-top: 1px solid var(--border); }
+
+    /* ── PAIN SECTION ─────────────────── */
+    .pain {
+      background: var(--bg);
+      padding: 5.5rem 2rem;
+    }
+    .pain-inner { max-width: 760px; margin: 0 auto; }
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+    .section-title em { font-style: italic; font-weight: 400; color: var(--primary-2); }
+    .section-body {
+      font-size: 16.5px;
+      color: var(--text-light);
+      line-height: 1.85;
+    }
+    .section-body p + p { margin-top: 1.25rem; }
+    .section-body strong { color: var(--text); font-weight: 600; }
+
+    /* ── SYMPTOMS GRID ────────────────── */
+    .symptoms {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 10px;
+      margin-top: 2.5rem;
+    }
+    .sym-item {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 13px 16px;
+      font-size: 14px;
+      color: var(--text-light);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .sym-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--primary);
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+
+    /* ── REASSURANCE ──────────────────── */
+    .reassure {
+      padding: 5rem 2rem;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .reassure-quote {
+      font-family: var(--serif);
+      font-size: clamp(1.15rem, 2.5vw, 1.5rem);
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.65;
+      border-left: 3px solid var(--primary);
+      padding-left: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    /* ── QUIZ SECTION ─────────────────── */
+    .quiz-section {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 5rem 2rem;
+    }
+    .quiz-inner { max-width: 640px; margin: 0 auto; }
+    .quiz-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .quiz-header h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+    .quiz-header p {
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+
+    /* PROGRESS */
+    .prog-wrap { margin-bottom: 2.25rem; }
+    .prog-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+    .prog-bg { background: #ddd5d9; border-radius: 99px; height: 4px; }
+    .prog-fill { background: var(--primary); height: 4px; border-radius: 99px; transition: width 0.4s ease; }
+
+    /* QUESTION */
+    .q-card {
+      background: var(--white);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      padding: 2rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+    .q-text {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 1.75rem;
+      line-height: 1.5;
+    }
+    .opt-grid { display: flex; gap: 10px; }
+    .opt {
+      flex: 1;
+      padding: 14px 10px;
+      border: 1.5px solid #ddd5d9;
+      border-radius: 7px;
+      background: var(--bg);
+      color: var(--text-light);
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.15s;
+      text-align: center;
+      font-family: var(--sans);
+      font-weight: 500;
+    }
+    .opt:hover { border-color: var(--primary); color: var(--text); background: #faf0f4; }
+    .opt.sel { background: var(--primary-light); border-color: var(--primary); color: var(--primary-2); font-weight: 700; }
+
+    /* NAV BUTTONS */
+    .q-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.75rem;
+    }
+    .btn-back {
+      background: transparent;
+      border: 1px solid #ccc4c8;
+      border-radius: 5px;
+      padding: 11px 22px;
+      font-size: 14px;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-family: var(--sans);
+      transition: all 0.15s;
+    }
+    .btn-back:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-next {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 14px 30px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: var(--sans);
+      transition: background 0.15s;
+    }
+    .btn-next:hover { background: var(--primary-2); }
+    .btn-next:disabled { opacity: 0.3; cursor: not-allowed; }
+
+    /* ── RESULT ─────────────────────── */
+    .result-wrap { background: var(--white); border-radius: 10px; border: 1px solid var(--border); padding: 2.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+    .result-badge {
+      display: inline-block;
+      padding: 5px 18px;
+      border-radius: 99px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+    }
+    .result-title {
+      font-family: var(--serif);
+      font-size: clamp(1.35rem, 3vw, 1.9rem);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1rem;
+      line-height: 1.3;
+    }
+    .result-body {
+      font-size: 16px;
+      color: var(--text-light);
+      line-height: 1.85;
+      margin-bottom: 2rem;
+      white-space: pre-wrap;
+    }
+
+    /* Score bar */
+    .score-wrap { margin-bottom: 2rem; }
+    .score-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+    .score-bg { background: #ddd5d9; border-radius: 99px; height: 8px; }
+    .score-fill { height: 8px; border-radius: 99px; transition: width 1.2s ease; }
+
+    /* ── CTA BLOCKS ─────────────────── */
+    .cta-dual {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 0.5rem;
+    }
+    @media (max-width: 600px) { .cta-dual { grid-template-columns: 1fr; } }
+
+    .cta-block {
+      border-radius: 10px;
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+    }
+    .cta-block.primary-cta {
+      background: linear-gradient(135deg, #1a0412 0%, var(--primary) 100%);
+      color: #fff;
+    }
+    .cta-block.secondary-cta {
+      background: var(--primary-light);
+      border: 1px solid rgba(129,9,71,0.2);
+      color: var(--text);
+    }
+    .cta-label {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+    .cta-block.primary-cta .cta-label { color: rgba(255,255,255,0.65); }
+    .cta-block.secondary-cta .cta-label { color: var(--primary); }
+    .cta-title {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 0.6rem;
+    }
+    .cta-block.primary-cta .cta-title { color: #fff; }
+    .cta-block.secondary-cta .cta-title { color: var(--text); }
+    .cta-sub {
+      font-size: 13.5px;
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+    .cta-block.primary-cta .cta-sub { color: rgba(255,255,255,0.78); }
+    .cta-block.secondary-cta .cta-sub { color: var(--text-light); }
+
+    .btn-cta-white {
+      display: inline-block;
+      background: #fff;
+      color: var(--primary);
+      border: none;
+      border-radius: 5px;
+      padding: 13px 22px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s;
+      font-family: var(--sans);
+      text-align: center;
+    }
+    .btn-cta-white:hover { background: #f0dce6; }
+    .btn-cta-rose {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 13px 22px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.15s;
+      font-family: var(--sans);
+      text-align: center;
+    }
+    .btn-cta-rose:hover { background: var(--primary-2); }
+
+    .restart-wrap { text-align: center; margin-top: 1.5rem; }
+    .btn-restart {
+      background: transparent;
+      border: 1px solid #ccc4c8;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 13px;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-family: var(--sans);
+    }
+
+    /* ── ABOUT ──────────────────────── */
+    .about {
+      padding: 5.5rem 2rem;
+      max-width: 880px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 4.5rem;
+      align-items: center;
+    }
+    @media (max-width: 700px) { .about { grid-template-columns: 1fr; gap: 2.5rem; } }
+    .about-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: 6px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+    }
+    .about-label {
+      font-size: 11px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .about-quote {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+    .about-body {
+      font-size: 15.5px;
+      color: var(--text-light);
+      line-height: 1.8;
+      margin-bottom: 1.75rem;
+    }
+    .btn-about {
+      display: inline-block;
+      border: 1.5px solid var(--primary);
+      color: var(--primary);
+      border-radius: 5px;
+      padding: 11px 24px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.15s;
+      font-family: var(--sans);
+    }
+    .btn-about:hover { background: var(--primary); color: #fff; }
+
+    /* ── PROGRAM TEASER ─────────────── */
+    .program {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 5.5rem 2rem;
+    }
+    .program-inner { max-width: 760px; margin: 0 auto; }
+    .program-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin-top: 2.5rem;
+    }
+    @media (max-width: 640px) { .program-grid { grid-template-columns: 1fr; } }
+    .phase-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .phase-num {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+    .phase-title {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.6rem;
+      line-height: 1.35;
+    }
+    .phase-body {
+      font-size: 13.5px;
+      color: var(--text-light);
+      line-height: 1.7;
+    }
+    .program-cta {
+      text-align: center;
+      margin-top: 3rem;
+    }
+    .btn-program {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 16px 44px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s;
+      font-family: var(--sans);
+    }
+    .btn-program:hover { background: var(--primary-2); }
+    .program-cta-note {
+      margin-top: 0.75rem;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* ── FOOTER ─────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2.25rem 2rem;
+      text-align: center;
+    }
+    .footer-brand {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.6rem;
+    }
+    .footer-links a {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin: 0 12px;
+    }
+    .footer-links a:hover { color: var(--primary); }
+
+    @media (max-width: 480px) {
+      .opt-grid { flex-direction: column; }
+      .hero-inner { padding: 60px 20px 56px; }
+      .q-card { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="https://seelenrevolte.de">
+    <img src="https://seelenrevolte.de/wp-content/uploads/2025/08/kb-sr_logo_HP_2025.png" alt="SeelenRevolte" />
+  </a>
+  <a class="header-cta" href="https://zeeg.me/seelenrevolte/30min" target="_blank">Erstgespräch – kostenlos</a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">Kostenloser Selbsttest · SeelenRevolte</div>
+    <h1>Bin ich eigentlich<br><em>bereits in den Wechseljahren?</em></h1>
+    <p class="hero-sub">Du spürst, dass sich etwas verändert – kannst es aber noch nicht ganz benennen. Dieser Test gibt dir in 3 Minuten ehrliche Klarheit. Keine Diagnose. Kein erhobener Zeigefinger.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">13 Fragen</span>
+      <span class="hero-tag">3 Minuten</span>
+      <span class="hero-tag">Anonym & kostenlos</span>
+      <span class="hero-tag">Sofortergebnis</span>
+    </div>
+    <a class="btn-hero" href="#test">Jetzt Test starten</a>
+    <p class="hero-note">Bisher gemacht von über 1.200 Frauen</p>
+  </div>
+</section>
+
+<!-- PAIN SECTION -->
+<section class="pain">
+  <div class="pain-inner">
+    <p class="section-label">Kennst du das?</p>
+    <h2 class="section-title">Dein Körper sendet Signale.<br><em>Aber niemand spricht darüber.</em></h2>
+    <div class="section-body">
+      <p>Du schläfst schlechter als früher. Du bist reizbarer, als du sein möchtest. Der Bauch hat sich verändert, obwohl du nichts anders machst. Und manchmal fragst du dich: <strong>Bilde ich mir das alles ein?</strong></p>
+      <p>Die Perimenopause – die Zeit vor der Menopause – beginnt oft still und schleichend. Jahre, bevor die Periode ganz ausbleibt. Viele Frauen erkennen sie nicht. Warten ab. Denken: <em>Das ist doch normal. Ich beiß mich durch.</em></p>
+      <p>Du bildest dir nichts ein. Diese Veränderungen sind real. Und je früher du sie verstehst, desto mehr Handlungsspielraum hast du.</p>
+    </div>
+    <div class="symptoms">
+      <div class="sym-item"><span class="sym-dot"></span>Hitzewallungen & Schweißausbrüche</div>
+      <div class="sym-item"><span class="sym-dot"></span>Schlafstörungen & frühes Aufwachen</div>
+      <div class="sym-item"><span class="sym-dot"></span>Stimmungsschwankungen & Reizbarkeit</div>
+      <div class="sym-item"><span class="sym-dot"></span>Unregelmäßige Periode</div>
+      <div class="sym-item"><span class="sym-dot"></span>Erschöpfung trotz Schlaf</div>
+      <div class="sym-item"><span class="sym-dot"></span>Brain Fog & Konzentrationsprobleme</div>
+      <div class="sym-item"><span class="sym-dot"></span>Libidoverlust & Scham beim Sex</div>
+      <div class="sym-item"><span class="sym-dot"></span>Gewichtszunahme am Bauch</div>
+      <div class="sym-item"><span class="sym-dot"></span>Körpergefühl verändert sich</div>
+      <div class="sym-item"><span class="sym-dot"></span>Gelenk- oder Muskelschmerzen</div>
+    </div>
+  </div>
+</section>
+
+<hr class="div" />
+
+<!-- REASSURANCE -->
+<div class="reassure">
+  <blockquote class="reassure-quote">
+    „Die Wechseljahre sind kein Verfall. Sie sind ein Übergang. Und wie jeder Übergang kann er dich brechen – oder befreien. Das hängt davon ab, ob du ihn verstehst."
+  </blockquote>
+  <p class="section-label">Warum dieser Test</p>
+  <div class="section-body">
+    <p>Dieser Test ist keine medizinische Diagnose – das kann nur dein Arzt oder deine Ärztin. Aber er zeigt dir ehrlich, ob deine Symptome zum typischen Bild der Perimenopause passen. Und er gibt dir einen ersten Kompass: Wo stehst du gerade? Was könnte jetzt sinnvoll sein?</p>
+    <p>Wissen ist kein Stress. Wissen ist Kraft.</p>
+  </div>
+</div>
+
+<hr class="div" />
+
+<!-- QUIZ -->
+<section class="quiz-section" id="test">
+  <div class="quiz-inner">
+    <div class="quiz-header">
+      <h2>Dein Selbsttest</h2>
+      <p>Beantworte jede Frage so ehrlich wie möglich – für dich, nicht für andere.</p>
+    </div>
+
+    <div id="quiz-body">
+      <div class="prog-wrap">
+        <div class="prog-meta">
+          <span id="prog-label">Frage 1 von 13</span>
+          <span id="prog-pct">0 %</span>
+        </div>
+        <div class="prog-bg"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+      </div>
+      <div class="q-card">
+        <p class="q-text" id="q-text"></p>
+        <div class="opt-grid" id="opts"></div>
+        <div class="q-nav">
+          <button class="btn-back" id="btn-back" onclick="goBack()">← Zurück</button>
+          <button class="btn-next" id="btn-next" onclick="goNext()" disabled>Weiter →</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="result-body" style="display:none;">
+      <div class="result-wrap">
+        <span class="result-badge" id="res-badge"></span>
+        <h2 class="result-title" id="res-title"></h2>
+        <div class="score-wrap">
+          <div class="score-meta">
+            <span>Dein Ergebnis</span>
+            <span id="score-lbl"></span>
+          </div>
+          <div class="score-bg"><div class="score-fill" id="score-fill" style="width:0%"></div></div>
+        </div>
+        <p class="result-body" id="res-text"></p>
+
+        <!-- DUAL CTA -->
+        <div class="cta-dual">
+          <div class="cta-block primary-cta">
+            <p class="cta-label">Kostenlos · 30 Minuten</p>
+            <p class="cta-title">Erstgespräch mit Katja</p>
+            <p class="cta-sub">Du, ich und das, was dich wirklich bewegt – ganz ohne Verpflichtung. Ich höre zu. Wir schauen gemeinsam, was du gerade brauchst.</p>
+            <a class="btn-cta-white" href="https://zeeg.me/seelenrevolte/30min" target="_blank">Termin sichern →</a>
+          </div>
+          <div class="cta-block secondary-cta">
+            <p class="cta-label">21-Tage-Programm</p>
+            <p class="cta-title">Raus aus der Scham – rein in deinen Körper</p>
+            <p class="cta-sub">Täglich 10–15 Minuten. Geführt. Für dich allein – in deinem Tempo, in deinem Zuhause. Körperarbeit ohne Leistungsdruck.</p>
+            <a class="btn-cta-rose" href="#programm">Mehr erfahren →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="restart-wrap">
+        <button class="btn-restart" onclick="restart()">Test wiederholen</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="div" />
+
+<!-- ABOUT -->
+<div class="about">
+  <div>
+    <img
+      class="about-img"
+      src="https://seelenrevolte.de/wp-content/uploads/2025/09/Franziska-Nehmer-184_1600.jpg"
+      alt="Katja Borasch – SeelenRevolte"
+    />
+  </div>
+  <div>
+    <p class="about-label">Katja Borasch · SeelenRevolte</p>
+    <p class="about-quote">„Ungezähmte Weiblichkeit beginnt dort, wo du aufhörst, dich im Dunkeln zu verstecken."</p>
+    <p class="about-body">Ich bin Heilpraktikerin für Psychotherapie, Hypnotherapeutin und Lustcoach – und ich begleite Frauen in den Wechseljahren, die aufgehört haben zu warten.<br><br>Die spüren: Es ist Zeit, endlich anzukommen. In sich. In ihrem Körper. In ihrer Lust. Tiefenpsychologisch, traumasensibel, ohne Schema F.</p>
+    <a class="btn-about" href="https://seelenrevolte.de/ueber-mich">Mehr über mich</a>
+  </div>
+</div>
+
+<hr class="div" />
+
+<!-- 21-TAGE-PROGRAMM TEASER -->
+<section class="program" id="programm">
+  <div class="program-inner">
+    <p class="section-label">21-Tage-Programm</p>
+    <h2 class="section-title">Raus aus der Scham –<br><em>rein in deinen Körper</em></h2>
+    <div class="section-body">
+      <p>Für Frauen in den Wechseljahren, die beim Sex funktionieren, sich für ihren Körper schämen – und spüren: <strong>So will ich nicht weitermachen.</strong></p>
+      <p style="margin-top:1rem;">Du arbeitest für dich. In deinem Tempo. In deinem Schlafzimmer. In deinem Bad. In deinem Körper. Täglich 10–15 Minuten Audio-Impulse, Körperübungen und Nervensystem-Regulation.</p>
+    </div>
+    <div class="program-grid">
+      <div class="phase-card">
+        <p class="phase-num">Phase 1 · Tag 1–7</p>
+        <p class="phase-title">Scham verstehen</p>
+        <p class="phase-body">Warum dein Körper sich zurückgezogen hat. Erste Schritte, dich wieder anzusehen – ohne Flucht.</p>
+      </div>
+      <div class="phase-card">
+        <p class="phase-num">Phase 2 · Tag 8–14</p>
+        <p class="phase-title">Körper zurückholen</p>
+        <p class="phase-body">Raus aus dem Kopf, rein in Empfindung. Atem und Becken aktivieren. Berührung ohne Ziel.</p>
+      </div>
+      <div class="phase-card">
+        <p class="phase-num">Phase 3 · Tag 15–21</p>
+        <p class="phase-title">Lust wieder erlauben</p>
+        <p class="phase-body">Wünsche benennen lernen. Selbstberührung ohne Bewertung. Nähe vorbereiten – ohne Rolle.</p>
+      </div>
+    </div>
+    <div class="program-cta">
+      <a class="btn-program" href="https://zeeg.me/seelenrevolte/30min" target="_blank">Erstgespräch buchen – kostenlos</a>
+      <p class="program-cta-note">Lass uns im Gespräch klären, ob das Programm das Richtige für dich ist.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-brand">SeelenRevolte · Katja Borasch</p>
+  <div class="footer-links">
+    <a href="https://seelenrevolte.de">Website</a>
+    <a href="https://seelenrevolte.de/impressum">Impressum</a>
+    <a href="https://seelenrevolte.de/datenschutz">Datenschutz</a>
+  </div>
+</footer>
+
+<script>
+const questions = [
+  { text: "Ich habe Hitzewallungen oder plötzliche Schweißausbrüche – auch nachts." },
+  { text: "Mein Schlaf hat sich verschlechtert: Ich liege wach, wache früh auf oder schlafe unruhig." },
+  { text: "Ich bin reizbarer, emotionaler oder stimmungsschwankender als früher." },
+  { text: "Meine Periode ist unregelmäßiger geworden – kommt früher, später oder bleibt mal aus." },
+  { text: "Ich fühle mich oft erschöpft, obwohl ich ausreichend geschlafen habe." },
+  { text: "Ich bin vergesslicher oder habe Konzentrationsprobleme – ein innerer Nebel." },
+  { text: "Mein Interesse an Sex hat deutlich nachgelassen." },
+  { text: "Ich nehme zu – besonders am Bauch – obwohl sich an meiner Ernährung kaum etwas geändert hat." },
+  { text: "Ich habe manchmal Herzrasen oder Herzklopfen ohne erkennbaren Grund." },
+  { text: "Meine Gelenke oder Muskeln schmerzen häufiger als früher." },
+  { text: "Meine Haut oder Haare haben sich verändert – trockener, dünner, matter." },
+  { text: "Ich schäme mich für meinen Körper oder meide Situationen, in denen ich ihn zeigen müsste." },
+  { text: "Ich habe das Gefühl, mich von meinem Körpergefühl, meiner Weiblichkeit oder meiner Lebendigkeit entfernt zu haben." }
+];
+
+const opts = [
+  { l: "Nein", v: 0 },
+  { l: "Manchmal", v: 1 },
+  { l: "Ja, deutlich", v: 2 }
+];
+
+const results = [
+  {
+    max: 7,
+    color: "#2d6a0f",
+    bg: "#e8f4de",
+    label: "KAUM ANZEICHEN",
+    title: "Dein Körper ist (noch) ruhig – aber hör hin.",
+    text: "Typische Wechseljahres-Symptome zeigen sich bei dir kaum oder noch nicht. Das kann bedeuten, du hast noch etwas Zeit – oder dein Körper leitet seinen Wandel gerade sehr leise ein.\n\nDie Perimenopause ist kein Ereignis. Sie ist ein Prozess – und beginnt oft still, Jahre bevor die Periode ausbleibt.\n\nDer beste Moment, sich damit zu beschäftigen, ist bevor alles auf einmal kommt."
+  },
+  {
+    max: 14,
+    color: "#8a5c00",
+    bg: "#faeedd",
+    label: "ERSTE SIGNALE",
+    title: "Dein Körper sendet Nachrichten. Hast du sie schon gelesen?",
+    text: "Was du gerade spürst, ist kein Zufall und keine Einbildung. Die Perimenopause beginnt oft Jahre vor der Menopause – leise, schleichend, manchmal verwirrend.\n\nViele Frauen in dieser Phase sagen: Ich wusste, dass sich etwas verändert. Aber ich dachte, ich muss das einfach aushalten.\n\nDu musst nicht aushalten. Du kannst verstehen, was passiert – und aktiv gestalten, wie du diesen Übergang erlebst."
+  },
+  {
+    max: 20,
+    color: "#7a1f3a",
+    bg: "#f5e0ea",
+    label: "MITTEN IM WANDEL",
+    title: "Du steckst mittendrin – und das verändert alles.",
+    text: "Viele der Symptome, die du gerade erlebst, gehören zum klassischen Bild der Wechseljahre. Das ist keine Schwäche. Das ist Biologie.\n\nAber Biologie muss kein Schicksal sein. Es gibt Wege, diesen Übergang mit mehr Leichtigkeit, mehr Energie – und ja, auch mehr Lust – zu leben.\n\nDas ist keine Schönfärberei. Das ist das, woran ich mit Frauen wie dir jeden Tag arbeite."
+  },
+  {
+    max: 26,
+    color: "#5a1530",
+    bg: "#edd8e2",
+    label: "KLARES BILD",
+    title: "Dein Körper schreit – du verdienst echte Unterstützung.",
+    text: "Du erlebst gerade sehr viel auf einmal. Körperlich, emotional, vielleicht auch in deiner Beziehung oder deinem Selbstbild. Das ist real. Und es ist zu viel, um es alleine zu tragen.\n\nDas bedeutet nicht, dass du ohnmächtig bist. Es bedeutet, dass jetzt der richtige Moment ist, dir wirkliche Unterstützung zu holen – keine Beschwichtigung, keine Standardratschläge.\n\nIch bin hier. Lass uns reden."
+  }
+];
+
+let cur = 0, ans = [];
+
+function render() {
+  const pct = Math.round(cur / questions.length * 100);
+  document.getElementById('prog-label').textContent = `Frage ${cur + 1} von ${questions.length}`;
+  document.getElementById('prog-pct').textContent = pct + ' %';
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('q-text').textContent = questions[cur].text;
+
+  const d = document.getElementById('opts');
+  d.innerHTML = '';
+  opts.forEach(o => {
+    const b = document.createElement('button');
+    b.className = 'opt' + (ans[cur] === o.v ? ' sel' : '');
+    b.textContent = o.l;
+    b.onclick = () => pick(o.v);
+    d.appendChild(b);
+  });
+
+  document.getElementById('btn-next').textContent = cur === questions.length - 1 ? 'Auswertung anzeigen' : 'Weiter →';
+  document.getElementById('btn-next').disabled = ans[cur] === undefined;
+  document.getElementById('btn-back').style.visibility = cur === 0 ? 'hidden' : 'visible';
+}
+
+function pick(v) {
+  ans[cur] = v;
+  document.querySelectorAll('.opt').forEach((b, i) => b.classList.toggle('sel', opts[i].v === v));
+  document.getElementById('btn-next').disabled = false;
+}
+
+function goNext() {
+  if (ans[cur] === undefined) return;
+  if (cur < questions.length - 1) { cur++; render(); }
+  else showResult();
+}
+
+function goBack() { if (cur > 0) { cur--; render(); } }
+
+function showResult() {
+  document.getElementById('quiz-body').style.display = 'none';
+  document.getElementById('result-body').style.display = 'block';
+  document.getElementById('result-body').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  const total = ans.reduce((s, v) => s + (v || 0), 0);
+  const max = questions.length * 2;
+  const r = results.find(r => total <= r.max) || results[results.length - 1];
+
+  const badge = document.getElementById('res-badge');
+  badge.textContent = r.label;
+  badge.style.background = r.bg;
+  badge.style.color = r.color;
+
+  document.getElementById('res-title').textContent = r.title;
+  document.getElementById('res-text').textContent = r.text;
+  document.getElementById('score-lbl').textContent = total + ' von ' + max + ' Punkten';
+  document.getElementById('score-fill').style.background = r.color;
+
+  setTimeout(() => {
+    document.getElementById('score-fill').style.width = Math.round(total / max * 100) + '%';
+  }, 300);
+}
+
+function restart() {
+  cur = 0; ans = [];
+  document.getElementById('result-body').style.display = 'none';
+  document.getElementById('quiz-body').style.display = 'block';
+  render();
+  document.getElementById('test').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+render();
+</script>
+
+</body>
+</html>
