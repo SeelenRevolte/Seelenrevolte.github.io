@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dein Lust-Profil – Kostenfreie KI-Analyse | SeelenRevolte</title>
+  <meta name="description" content="In 5 Minuten zu deiner persönlichen Lust-Blockade – individuell, kostenlos, anonym." />
+  <meta name="robots" content="noindex, nofollow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:   #810947;
+      --primary-2: #871d41;
+      --primary-lt:#f5e0ea;
+      --bg:        #f8f2f0;
+      --text:      #2c1a22;
+      --text-mid:  #5e4050;
+      --white:     #ffffff;
+      --border:    #e8d4dc;
+    }
+
+    body {
+      font-family: 'IBM Plex Sans', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ─────────────────────────────────── */
+    .site-header {
+      background: var(--white);
+      border-bottom: 3px solid var(--primary);
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .site-header img { max-height: 72px; width: auto; }
+
+    /* ── APP SHELL ──────────────────────────────── */
+    #app {
+      min-height: calc(100vh - 115px);
+    }
+
+    /* ── FOOTER ─────────────────────────────────── */
+    .site-footer {
+      background: #1a1020;
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      padding: 24px;
+      font-size: 0.8rem;
+      font-family: 'IBM Plex Sans', sans-serif;
+    }
+    .footer-links { margin-bottom: 6px; display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; }
+    .footer-links a { color: rgba(255,255,255,0.65); text-decoration: none; }
+    .footer-links a:hover { color: var(--white); }
+    .footer-links span { opacity: 0.3; }
+
+    /* ── REACT APP RESETS ───────────────────────── */
+    /* Ensure Google Font reaches React-rendered nodes */
+    #app * { font-family: inherit; }
+    #app h1, #app h2, #app h3 { font-family: 'Playfair Display', serif; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <a href="https://seelenrevolte.de">
+      <img src="https://seelenrevolte.github.io/Logo/KB-SR__Logo_digi1.jpg" alt="SeelenRevolte by Katja Borasch"
+           onerror="this.replaceWith(Object.assign(document.createElement('span'),{textContent:'SeelenRevolte',style:'font-size:20px;font-weight:700;color:#810947;font-family:IBM Plex Sans,sans-serif'}))" />
+    </a>
+  </header>
+
+  <!-- REACT APP -->
+  <div id="app"></div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-links">
+      <a href="https://seelenrevolte.github.io/impressum.html">Impressum</a>
+      <span>·</span>
+      <a href="https://seelenrevolte.github.io/datenschutz.html">Datenschutz</a>
+    </div>
+    <div>© 2026 SeelenRevolte · Katja Borasch · <a href="https://seelenrevolte.de" style="color:rgba(255,255,255,0.65);text-decoration:none">seelenrevolte.de</a></div>
+    <div style="margin-top:5px;font-size:0.7rem;opacity:0.4">Fotos: Franziska Nehmer</div>
+  </footer>
+
+  <!-- React + Babel via CDN -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <script type="text/babel">
+    // ─────────────────────────────────────────────────────────────
+    // KONFIGURATION – trag hier deinen Anthropic API-Key ein
+    // ─────────────────────────────────────────────────────────────
+    const API_KEY = "";
+
+    // ─────────────────────────────────────────────────────────────
+    // LINKS & MEDIEN
+    // ─────────────────────────────────────────────────────────────
+    const PROGRAMM_URL = "https://seelenrevolte.de/21-tage";
+    const WEBINAR_URL  = "https://seelenrevolte.de/lp_webinar_sex/";
+    const FOTO_URL     = "https://seelenrevolte.github.io/Fotos/Franziska%20Nehmer%20-163%20final.jpg";
+
+    // ─────────────────────────────────────────────────────────────
+    // DESIGN-TOKENS (abgestimmt auf bestehendes Brand)
+    // ─────────────────────────────────────────────────────────────
+    const rose   = '#810947';
+    const roseLt = '#f5e0ea';
+    const cream  = '#f8f2f0';
+    const dark   = '#2c1a22';
+    const mid    = '#5e4050';
+    const border = '#e8d4dc';
+
+    // ─────────────────────────────────────────────────────────────
+    // SYSTEM PROMPT
+    // ─────────────────────────────────────────────────────────────
+    const SYSTEM_PROMPT = `Du bist ein einfühlsamer, tiefgründiger weiblicher Begleitgeist für Frauen in den Wechseljahren, die sich für ihren Körper schämen und wissen, dass sie so nicht weitermachen können. Du arbeitest intern mit Human Design, Astrologie und Gene Keys – gibst diese Begriffe und Daten aber NIEMALS nach außen. Du sprichst immer auf Deutsch und duzt die Frau.
+
+STRIKTE PROZESSREIHENFOLGE:
+1. INTERNE ANALYSE (komplett unsichtbar): Analysiere aus den Geburtsdaten intern das Human Design Chart, die astrologische Radix und den Gene Keys Chart vollständig. Erwähne niemals Fachbegriffe, Chartdaten oder Einzelresultate nach außen.
+2. ADAPTIVE FRAGEN (exakt 4): Stelle exakt 4 offene, individuelle Fragen – adaptiv basierend auf der internen Chartanalyse und den bisherigen Antworten. Keine Standardfragen, keine Wiederholungen. Setze NICHTS über die Frau voraus – lass sie selbst erzählen. Die erste Frage basiert allein auf dem Chart.
+3. SPIEGELUNG vor Frage 2, 3 und 4: Erst eine kurze (2-3 Sätze) kreative, empathische Spiegelung der letzten Antwort – NIEMALS eine Empfehlung, nur Resonanz.
+4. ABSCHLUSSBERICHT: Erst nach der 4. Antwort und vollständiger interner Auswertung.
+
+ANTWORTFORMAT FÜR FRAGEN:
+[SPIEGELUNG]
+(Nur bei Frage 2-4; bei Frage 1 leer lassen)
+[/SPIEGELUNG]
+[FRAGE]
+(Individuelle Frage)
+[/FRAGE]
+
+ANTWORTFORMAT FÜR ABSCHLUSSBERICHT:
+[BERICHT]
+(Vollständiger Bericht, ca. 900-1100 Wörter)
+[/BERICHT]
+
+ABSCHLUSSBERICHT – PFLICHTSTRUKTUR (Fließtext, kreative Überschriften, KEINE Listen):
+## [Kreativer individueller Titel]
+Metaphorische Einleitung – sie fühlt sich tief gesehen.
+## Deine Lust-Blockade
+Eine benennen: Scham-Blockade, Körper-Entfremdungs-Blockade, Kontroll-Blockade, Verbindungs-Blockade oder Identitäts-Blockade. Individuell erklären.
+## Die Wurzeln
+Tiefgründig, nicht verurteilend.
+## Was dich das kostet
+Ehrlich: emotional, körperlich, im Bett.
+## Das Feuer in dir
+Was an Lust in ihr schlummert – visionär, warm.
+## Deine ersten Impulse
+3-4 Sätze konkrete Impulse – erst HIER.
+## Deine Einladung
+"Wenn du bereit bist, diese Blockade nicht nur zu verstehen, sondern wirklich aufzulösen – dann lade ich dich herzlich ein in mein 21-Tage-Programm 'Mein Körper, meine Lust'. 21 Tage, in denen du deinen Körper neu entdeckst, Scham in Kraft verwandelst und deine Sexualität als das lebst, was sie wirklich ist: ein Geschenk an dich selbst. 🌹"
+
+STIL: Duzen. Emotional, weiblich, direkt, empowernd. Bildsprache. Kein Fachchinesisch.`;
+
+    // ─────────────────────────────────────────────────────────────
+    // API
+    // ─────────────────────────────────────────────────────────────
+    async function callAPI(messages, isReport = false) {
+      const res = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": API_KEY,
+          "anthropic-version": "2023-06-01",
+          "anthropic-dangerous-direct-browser-access": "true"
+        },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-20250514",
+          max_tokens: isReport ? 2000 : 1000,
+          system: SYSTEM_PROMPT,
+          messages
+        })
+      });
+      const data = await res.json();
+      if (data.error) throw new Error(data.error.message);
+      return data.content[0].text;
+    }
+
+    function parseQ(t) {
+      return {
+        reflection: (t.match(/\[SPIEGELUNG\]([\s\S]*?)\[\/SPIEGELUNG\]/) || [])[1]?.trim() || "",
+        question:   (t.match(/\[FRAGE\]([\s\S]*?)\[\/FRAGE\]/)           || [])[1]?.trim() || t.trim()
+      };
+    }
+
+    function parseB(t) {
+      const m = t.match(/\[BERICHT\]([\s\S]*?)\[\/BERICHT\]/);
+      return m ? m[1].trim() : t.trim();
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // HELPER COMPONENTS
+    // ─────────────────────────────────────────────────────────────
+    const { useState } = React;
+
+    function Card({ children, style }) {
+      return (
+        <div style={{
+          background: '#fff',
+          border: `1px solid ${border}`,
+          borderRadius: '14px',
+          padding: '40px 36px',
+          boxShadow: '0 6px 32px rgba(129,9,71,0.09)',
+          ...style
+        }}>
+          {children}
+        </div>
+      );
+    }
+
+    function Badge({ children }) {
+      return (
+        <span style={{
+          display: 'inline-block',
+          background: roseLt,
+          color: rose,
+          fontSize: '11px',
+          fontWeight: '700',
+          letterSpacing: '0.12em',
+          textTransform: 'uppercase',
+          padding: '4px 14px',
+          borderRadius: '20px',
+          marginBottom: '16px'
+        }}>
+          {children}
+        </span>
+      );
+    }
+
+    function PrimaryBtn({ children, onClick, disabled }) {
+      return (
+        <button
+          onClick={onClick}
+          disabled={disabled}
+          style={{
+            width: '100%',
+            border: 'none',
+            borderRadius: '50px',
+            padding: '16px 24px',
+            fontSize: '15px',
+            fontWeight: '700',
+            cursor: disabled ? 'not-allowed' : 'pointer',
+            background: disabled ? '#c8a0b0' : rose,
+            color: '#fff',
+            letterSpacing: '0.03em',
+            boxShadow: disabled ? 'none' : '0 4px 18px rgba(129,9,71,0.3)',
+            transition: 'background 0.2s, transform 0.15s',
+          }}
+          onMouseEnter={e => { if (!disabled) e.target.style.transform = 'translateY(-2px)'; }}
+          onMouseLeave={e => { e.target.style.transform = 'translateY(0)'; }}
+        >
+          {children}
+        </button>
+      );
+    }
+
+    function FieldLabel({ children }) {
+      return (
+        <p style={{
+          fontSize: '11px',
+          fontWeight: '700',
+          color: rose,
+          letterSpacing: '0.1em',
+          textTransform: 'uppercase',
+          marginBottom: '6px',
+          marginTop: '0'
+        }}>
+          {children}
+        </p>
+      );
+    }
+
+    const inputStyle = {
+      width: '100%',
+      border: `1.5px solid ${border}`,
+      borderRadius: '8px',
+      padding: '13px 15px',
+      fontSize: '15px',
+      color: dark,
+      background: '#fff',
+      outline: 'none',
+      boxSizing: 'border-box',
+      fontFamily: "'IBM Plex Sans', sans-serif",
+      marginBottom: '20px',
+      transition: 'border-color 0.2s',
+    };
+
+    function Reflection({ text }) {
+      return (
+        <div style={{
+          background: roseLt,
+          borderLeft: `3px solid ${rose}`,
+          borderRadius: '0 10px 10px 0',
+          padding: '16px 20px',
+          marginBottom: '24px'
+        }}>
+          <p style={{ fontSize: '14px', color: '#5a2d3a', lineHeight: 1.8, margin: 0, fontStyle: 'italic' }}>
+            💫 {text}
+          </p>
+        </div>
+      );
+    }
+
+    function ReportRenderer({ text }) {
+      return (
+        <div>
+          {text.split('\n').map((line, i) => {
+            if (line.startsWith('## ')) {
+              return (
+                <h3 key={i} style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: '20px',
+                  color: dark,
+                  fontWeight: 'bold',
+                  marginTop: '32px',
+                  marginBottom: '10px'
+                }}>
+                  {line.replace('## ', '')}
+                </h3>
+              );
+            }
+            if (!line.trim()) return <br key={i} />;
+            const parts = line.split(/(\*\*[^*]+\*\*)/g);
+            return (
+              <p key={i} style={{ fontSize: '15px', lineHeight: 1.9, color: '#4a3040', marginBottom: '4px' }}>
+                {parts.map((p, j) =>
+                  p.startsWith('**')
+                    ? <strong key={j}>{p.replace(/\*\*/g, '')}</strong>
+                    : p
+                )}
+              </p>
+            );
+          })}
+        </div>
+      );
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // STAGE: INTRO
+    // ─────────────────────────────────────────────────────────────
+    function Intro({ onNext }) {
+      return (
+        <div style={{ minHeight: '100%', background: cream, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 20px' }}>
+          <div style={{ maxWidth: '580px', width: '100%' }}>
+            <Card>
+              <div style={{ margin: '-40px -36px 32px', borderRadius: '13px 13px 0 0', overflow: 'hidden', height: '240px' }}>
+                <img
+                  src={FOTO_URL}
+                  alt="Katja Borasch – SeelenRevolte"
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 15%' }}
+                  onError={e => { e.target.parentElement.style.background = `linear-gradient(135deg, #1e0515 0%, ${rose} 100%)`; e.target.style.display = 'none'; }}
+                />
+              </div>
+
+              <Badge>Kostenfreier Selbst-Test</Badge>
+
+              <h1 style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: 'clamp(1.6rem, 4vw, 2.1rem)',
+                color: dark,
+                lineHeight: 1.3,
+                marginBottom: '12px',
+                fontWeight: '700'
+              }}>
+                Was blockiert wirklich<br />
+                <em style={{ color: rose, fontStyle: 'italic' }}>deine Lust?</em>
+              </h1>
+
+              <p style={{ fontSize: '14px', color: mid, marginBottom: '24px', lineHeight: 1.6 }}>
+                In 5 Minuten – anonym – zu deiner wahren Lust-Blockade
+              </p>
+
+              <p style={{ fontSize: '15px', color: '#4a3040', lineHeight: 1.85, marginBottom: '16px' }}>
+                Du weißt, dass du so nicht weitermachen kannst. Dein Körper hat sich verändert.
+                Die Lust ist weg – oder so weit weg, dass du kaum noch weißt, wie sie sich anfühlt.
+              </p>
+
+              <p style={{ fontSize: '15px', color: '#4a3040', lineHeight: 1.85, marginBottom: '32px' }}>
+                Dieser Check zeigt dir <strong>individuell und tiefer als alles, was du bisher gelesen hast</strong>,
+                was wirklich hinter deiner Lust-Blockade steckt.
+              </p>
+
+              <PrimaryBtn onClick={onNext}>Jetzt meinen Lust-Check starten →</PrimaryBtn>
+
+              <p style={{ fontSize: '12px', color: mid, textAlign: 'center', marginTop: '14px', letterSpacing: '0.02em' }}>
+                🔒 Anonym &nbsp;·&nbsp; Kostenlos &nbsp;·&nbsp; Ca. 5 Minuten
+              </p>
+            </Card>
+          </div>
+        </div>
+      );
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // STAGE: FORM
+    // ─────────────────────────────────────────────────────────────
+    function Form({ fd, setFd, onSubmit, loading, err }) {
+      return (
+        <div style={{ minHeight: '100%', background: cream, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 20px' }}>
+          <div style={{ maxWidth: '520px', width: '100%' }}>
+            <Card>
+              <Badge>Dein persönlicher Fingerabdruck</Badge>
+
+              <h2 style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: 'clamp(1.3rem, 3vw, 1.7rem)',
+                color: dark,
+                fontWeight: '700',
+                marginBottom: '10px',
+                lineHeight: 1.3
+              }}>
+                Damit dein Ergebnis wirklich{' '}
+                <em style={{ color: rose, fontStyle: 'italic' }}>individuell</em> wird
+              </h2>
+
+              <p style={{ fontSize: '14px', color: mid, marginBottom: '32px', lineHeight: 1.7 }}>
+                Dein Name dient nur der persönlichen Ansprache.
+                Deine Daten werden nicht gespeichert.
+              </p>
+
+              <FieldLabel>Vorname</FieldLabel>
+              <input
+                style={inputStyle}
+                value={fd.name}
+                onChange={e => setFd(p => ({ ...p, name: e.target.value }))}
+                placeholder="Wie darf ich dich nennen?"
+                onFocus={e => e.target.style.borderColor = rose}
+                onBlur={e => e.target.style.borderColor = border}
+              />
+
+              <FieldLabel>Geburtsdatum</FieldLabel>
+              <input
+                style={inputStyle}
+                type="date"
+                value={fd.birthdate}
+                onChange={e => setFd(p => ({ ...p, birthdate: e.target.value }))}
+                onFocus={e => e.target.style.borderColor = rose}
+                onBlur={e => e.target.style.borderColor = border}
+              />
+
+              <FieldLabel>Geburtszeit</FieldLabel>
+              <input
+                style={inputStyle}
+                type="time"
+                value={fd.birthtime}
+                onChange={e => setFd(p => ({ ...p, birthtime: e.target.value }))}
+                onFocus={e => e.target.style.borderColor = rose}
+                onBlur={e => e.target.style.borderColor = border}
+              />
+
+              <FieldLabel>Geburtsort</FieldLabel>
+              <input
+                style={{ ...inputStyle, marginBottom: '30px' }}
+                value={fd.birthplace}
+                onChange={e => setFd(p => ({ ...p, birthplace: e.target.value }))}
+                placeholder="Stadt, Land"
+                onFocus={e => e.target.style.borderColor = rose}
+                onBlur={e => e.target.style.borderColor = border}
+              />
+
+              {err && (
+                <p style={{ color: '#c0392b', fontSize: '13px', textAlign: 'center', marginBottom: '14px' }}>
+                  {err}
+                </p>
+              )}
+
+              <PrimaryBtn onClick={onSubmit} disabled={loading}>
+                {loading ? 'Einen Moment …' : 'Analyse starten →'}
+              </PrimaryBtn>
+            </Card>
+          </div>
+        </div>
+      );
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // STAGE: LOADER
+    // ─────────────────────────────────────────────────────────────
+    function Loader({ isReport }) {
+      return (
+        <div style={{ minHeight: '100%', background: cream, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '60px 20px' }}>
+          <div style={{ maxWidth: '520px', width: '100%' }}>
+            <Card style={{ textAlign: 'center', padding: '64px 36px' }}>
+              <div style={{ fontSize: '52px', marginBottom: '20px' }}>{isReport ? '🌹' : '✨'}</div>
+              <h2 style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: '22px',
+                color: dark,
+                fontWeight: '700',
+                marginBottom: '14px'
+              }}>
+                {isReport ? 'Dein Lust-Profil wird geschrieben …' : 'Dein Energiebild entsteht …'}
+              </h2>
+              <p style={{ fontSize: '15px', color: mid, lineHeight: 1.8 }}>
+                {isReport
+                  ? 'Alle deine Antworten fließen zusammen in dein ganz persönliches Bild.'
+                  : 'Ich schaue in deine energetische Struktur – was dich antreibt, was dich blockiert.'}
+              </p>
+              <div style={{
+                width: '48px', height: '3px',
+                background: rose,
+                borderRadius: '2px',
+                margin: '28px auto 0',
+                animation: 'pulse 1.5s ease-in-out infinite'
+              }} />
+            </Card>
+          </div>
+        </div>
+      );
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // STAGE: QUESTIONING
+    // ─────────────────────────────────────────────────────────────
+    function Questioning({ qNum, refl, quest, ans, setAns, onSubmit, loading, err }) {
+      return (
+        <div style={{ minHeight: '100%', background: cream, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px 20px' }}>
+          <div style={{ maxWidth: '580px', width: '100%' }}>
+            <Card>
+              {/* Progress bar */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '32px' }}>
+                {[1, 2, 3, 4].map(n => (
+                  <div key={n} style={{
+                    flex: 1,
+                    height: '3px',
+                    borderRadius: '2px',
+                    background: n <= qNum ? rose : border,
+                    transition: 'background 0.4s'
+                  }} />
+                ))}
+                <span style={{ fontSize: '12px', color: mid, marginLeft: '4px', whiteSpace: 'nowrap' }}>
+                  {qNum} / 4
+                </span>
+              </div>
+
+              {refl && <Reflection text={refl} />}
+
+              <h2 style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: 'clamp(1.1rem, 3vw, 1.35rem)',
+                color: dark,
+                fontWeight: '700',
+                lineHeight: 1.55,
+                marginBottom: '22px'
+              }}>
+                {quest}
+              </h2>
+
+              <textarea
+                value={ans}
+                onChange={e => setAns(e.target.value)}
+                placeholder="Schreib hier, was dir wirklich durch den Kopf geht – ehrlich und unzensiert …"
+                style={{
+                  width: '100%',
+                  border: `1.5px solid ${border}`,
+                  borderRadius: '10px',
+                  padding: '15px',
+                  fontSize: '15px',
+                  color: dark,
+                  minHeight: '140px',
+                  resize: 'vertical',
+                  outline: 'none',
+                  fontFamily: "'IBM Plex Sans', sans-serif",
+                  lineHeight: 1.75,
+                  boxSizing: 'border-box',
+                  transition: 'border-color 0.2s'
+                }}
+                onFocus={e => e.target.style.borderColor = rose}
+                onBlur={e => e.target.style.borderColor = border}
+              />
+
+              {err && (
+                <p style={{ color: '#c0392b', fontSize: '13px', marginTop: '8px' }}>{err}</p>
+              )}
+
+              <div style={{ marginTop: '18px' }}>
+                <PrimaryBtn onClick={onSubmit} disabled={loading || !ans.trim()}>
+                  {loading
+                    ? 'Ich lese deine Antwort …'
+                    : qNum === 4
+                      ? 'Mein Ergebnis enthüllen 🌹'
+                      : 'Weiter →'}
+                </PrimaryBtn>
+              </div>
+            </Card>
+          </div>
+        </div>
+      );
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // STAGE: REPORT
+    // ─────────────────────────────────────────────────────────────
+    function Report({ report, name, onReset }) {
+      return (
+        <div style={{ background: cream, padding: '40px 20px', display: 'flex', justifyContent: 'center' }}>
+          <div style={{ maxWidth: '660px', width: '100%' }}>
+            <Card>
+              {/* Report header */}
+              <div style={{
+                textAlign: 'center',
+                marginBottom: '32px',
+                paddingBottom: '28px',
+                borderBottom: `1px solid ${border}`
+              }}>
+                <Badge>Dein persönliches Ergebnis</Badge>
+                <h1 style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: 'clamp(1.6rem, 4vw, 2.1rem)',
+                  color: dark,
+                  fontWeight: '700',
+                  marginBottom: '6px'
+                }}>
+                  Dein <em style={{ color: rose, fontStyle: 'italic' }}>Lust-Profil</em>
+                </h1>
+                <p style={{ fontSize: '14px', color: mid }}>Individuell erstellt für {name}</p>
+              </div>
+
+              <ReportRenderer text={report} />
+
+              {/* CTA: Programm */}
+              <div style={{
+                marginTop: '44px',
+                padding: '32px',
+                background: roseLt,
+                borderRadius: '12px',
+                textAlign: 'center'
+              }}>
+                <p style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: '19px',
+                  color: dark,
+                  marginBottom: '8px',
+                  fontWeight: '700'
+                }}>
+                  Bereit, diese Blockade wirklich aufzulösen?
+                </p>
+                <p style={{ fontSize: '14px', color: mid, marginBottom: '22px', lineHeight: 1.7 }}>
+                  21 Tage. Dein Körper. Deine Lust. Endlich.
+                </p>
+                <a
+                  href={PROGRAMM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'block',
+                    background: rose,
+                    color: '#fff',
+                    padding: '16px 24px',
+                    borderRadius: '50px',
+                    textDecoration: 'none',
+                    fontWeight: '700',
+                    fontSize: '15px',
+                    letterSpacing: '0.02em',
+                    boxShadow: '0 4px 18px rgba(129,9,71,0.3)'
+                  }}
+                >
+                  Zum 21-Tage-Programm „Mein Körper, meine Lust" →
+                </a>
+              </div>
+
+              {/* CTA: Webinar */}
+              <div style={{
+                marginTop: '14px',
+                padding: '20px 24px',
+                border: `1px solid ${border}`,
+                borderRadius: '12px',
+                textAlign: 'center'
+              }}>
+                <p style={{ fontSize: '13px', color: mid, marginBottom: '8px' }}>
+                  Noch nicht sicher? Erst das kostenlose Webinar:
+                </p>
+                <a
+                  href={WEBINAR_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: rose, fontSize: '14px', fontWeight: '600', textDecoration: 'none' }}
+                >
+                  „Warum du deinen Körper versteckst" – kostenlos ansehen →
+                </a>
+              </div>
+
+              {/* Reset */}
+              <div style={{ textAlign: 'center', marginTop: '28px' }}>
+                <button
+                  onClick={onReset}
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    color: mid,
+                    fontSize: '13px',
+                    cursor: 'pointer',
+                    textDecoration: 'underline',
+                    fontFamily: "'IBM Plex Sans', sans-serif"
+                  }}
+                >
+                  Test neu starten
+                </button>
+              </div>
+            </Card>
+          </div>
+        </div>
+      );
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // MAIN APP
+    // ─────────────────────────────────────────────────────────────
+    function LustCheck() {
+      const [stage, setStage] = useState('intro');
+      const [fd, setFd]       = useState({ name: '', birthdate: '', birthtime: '', birthplace: '' });
+      const [msgs, setMsgs]   = useState([]);
+      const [qNum, setQNum]   = useState(0);
+      const [refl, setRefl]   = useState('');
+      const [quest, setQuest] = useState('');
+      const [ans, setAns]     = useState('');
+      const [report, setRep]  = useState('');
+      const [load, setLoad]   = useState(false);
+      const [err, setErr]     = useState('');
+
+      const handleStart = async () => {
+        if (!fd.name || !fd.birthdate || !fd.birthtime || !fd.birthplace) {
+          setErr('Bitte fülle alle Felder aus.');
+          return;
+        }
+        setErr('');
+        setLoad(true);
+        setStage('analyzing');
+
+        const userMsg = `Mein Name ist ${fd.name}. Meine Geburtsdaten: ${fd.birthdate}, ${fd.birthtime} Uhr, ${fd.birthplace}. Bitte starte den Lust-Check und stelle mir deine erste individuelle Frage.`;
+        const init = [{ role: 'user', content: userMsg }];
+
+        try {
+          const resp = await callAPI(init);
+          const { reflection, question } = parseQ(resp);
+          setMsgs([...init, { role: 'assistant', content: resp }]);
+          setRefl(reflection);
+          setQuest(question);
+          setQNum(1);
+          setLoad(false);
+          setStage('questioning');
+        } catch (e) {
+          setErr('Verbindungsfehler – bitte versuche es erneut.');
+          setLoad(false);
+          setStage('form');
+        }
+      };
+
+      const handleAnswer = async () => {
+        if (!ans.trim() || load) return;
+        setErr('');
+        setLoad(true);
+
+        const isLast = qNum >= 4;
+        const uc = isLast
+          ? `${ans}\n\n[Das war meine 4. Antwort. Bitte erstelle jetzt den vollständigen individualisierten Abschlussbericht.]`
+          : ans;
+        const nm = [...msgs, { role: 'user', content: uc }];
+
+        try {
+          const resp = await callAPI(nm, isLast);
+          if (isLast) {
+            setStage('generating');
+            setTimeout(() => {
+              setRep(parseB(resp));
+              setLoad(false);
+              setStage('report');
+            }, 2500);
+          } else {
+            const { reflection, question } = parseQ(resp);
+            setMsgs([...nm, { role: 'assistant', content: resp }]);
+            setRefl(reflection);
+            setQuest(question);
+            setAns('');
+            setQNum(n => n + 1);
+            setLoad(false);
+          }
+        } catch (e) {
+          setErr('Verbindungsfehler – bitte versuche es erneut.');
+          setLoad(false);
+        }
+      };
+
+      const reset = () => {
+        setStage('intro');
+        setMsgs([]);
+        setQNum(0);
+        setRep('');
+        setAns('');
+        setErr('');
+        setFd({ name: '', birthdate: '', birthtime: '', birthplace: '' });
+      };
+
+      if (stage === 'intro')       return <Intro onNext={() => setStage('form')} />;
+      if (stage === 'form')        return <Form fd={fd} setFd={setFd} onSubmit={handleStart} loading={load} err={err} />;
+      if (stage === 'analyzing')   return <Loader isReport={false} />;
+      if (stage === 'generating')  return <Loader isReport={true} />;
+      if (stage === 'questioning') return <Questioning qNum={qNum} refl={refl} quest={quest} ans={ans} setAns={setAns} onSubmit={handleAnswer} loading={load} err={err} />;
+      if (stage === 'report')      return <Report report={report} name={fd.name} onReset={reset} />;
+      return null;
+    }
+
+    // Mount
+    const root = ReactDOM.createRoot(document.getElementById('app'));
+    root.render(<LustCheck />);
+  </script>
+
+  <style>
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.35; }
+    }
+  </style>
+
+</body>
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>21 Tage: Raus aus der Scham – rein in deinen Körper | SeelenRevolte</title>
+  <meta name="description" content="Ein Audio-Programm für Frauen in den Wechseljahren, die aufgehört haben, sich zu spüren – und damit aufhören wollen. Täglich 10–15 Minuten. Allein. Zuhause." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:       #7B1D4F;
+      --primary-2:     #a0254e;
+      --primary-light: #f5e0ea;
+      --bg:            #f8f2f0;
+      --text:          #1E1A1C;
+      --text-light:    #4A4347;
+      --text-muted:    #8A8087;
+      --white:         #ffffff;
+      --border:        rgba(30,26,28,0.1);
+      --gold:          #D4924A;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans:  'IBM Plex Sans', -apple-system, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); color: var(--text); background: var(--white); line-height: 1.75; font-size: 16px; }
+
+    /* ── HEADER ── */
+    .site-header {
+      background: var(--white);
+      border-bottom: 2px solid var(--primary);
+      padding: 14px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .site-header img { max-height: 48px; width: auto; display: block; }
+    .header-cta {
+      font-size: 13px; font-weight: 600; color: var(--primary);
+      text-decoration: none; border: 1.5px solid var(--primary);
+      border-radius: 4px; padding: 8px 18px; transition: all 0.15s; white-space: nowrap;
+    }
+    .header-cta:hover { background: var(--primary); color: #fff; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #1a0412 0%, var(--primary) 60%, var(--primary-2) 100%);
+      color: var(--white); padding: 80px 24px 72px;
+    }
+    .hero-inner { max-width: 720px; margin: 0 auto; text-align: center; }
+    .hero-badge {
+      display: inline-block; background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.28); border-radius: 30px;
+      padding: 6px 20px; font-size: 12px; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 1.5rem; font-weight: 500;
+    }
+    .hero h1 {
+      font-family: var(--serif); font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 400; line-height: 1.2; margin-bottom: 1.25rem;
+    }
+    .hero h1 em { font-style: italic; color: #f5c9d8; }
+    .hero-sub {
+      font-size: 18px; font-weight: 300; line-height: 1.85;
+      max-width: 580px; margin: 0 auto 2.25rem; opacity: 0.92;
+    }
+    .hero-tags { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .hero-tag {
+      font-size: 12px; padding: 5px 16px; border-radius: 99px;
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color: rgba(255,255,255,0.9);
+    }
+    .btn-hero {
+      display: inline-block; background: var(--white); color: var(--primary);
+      font-family: var(--sans); font-weight: 700; font-size: 16px;
+      padding: 16px 40px; border-radius: 4px; text-decoration: none;
+      transition: all 0.15s; letter-spacing: 0.02em;
+    }
+    .btn-hero:hover { background: var(--primary-light); }
+    .hero-note { font-size: 13px; opacity: 0.55; margin-top: 1rem; }
+
+    /* ── SECTIONS ── */
+    .section { padding: 72px 24px; }
+    .section-inner { max-width: 720px; margin: 0 auto; }
+    .section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--primary); margin-bottom: 12px;
+    }
+    .section h2 {
+      font-family: var(--serif); font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 400; line-height: 1.3; margin-bottom: 1.25rem;
+    }
+    .section h2 em { font-style: italic; color: var(--primary); }
+    .section p { font-size: 16px; color: var(--text-light); line-height: 1.85; }
+    .section p + p { margin-top: 1rem; }
+
+    .bg-warm { background: var(--bg); }
+
+    /* ── PAIN LIST ── */
+    .pain-list { list-style: none; margin-top: 1.75rem; display: grid; gap: 14px; }
+    .pain-list li {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: var(--white); border: 0.5px solid var(--border);
+      border-radius: 8px; padding: 1rem 1.25rem;
+      font-size: 15px; color: var(--text-light); line-height: 1.6;
+    }
+    .pain-list li::before {
+      content: '›'; color: var(--primary); font-size: 1.4rem;
+      line-height: 1.3; flex-shrink: 0; font-weight: 700;
+    }
+
+    /* ── PHASES ── */
+    .phases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 2rem; }
+    @media (max-width: 640px) { .phases { grid-template-columns: 1fr; } }
+    .phase-card {
+      background: var(--white); border: 0.5px solid var(--border);
+      border-radius: 10px; padding: 1.5rem; border-top: 3px solid var(--primary);
+    }
+    .phase-num { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--primary); margin-bottom: 0.5rem; }
+    .phase-title { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; margin-bottom: 0.6rem; color: var(--text); }
+    .phase-body { font-size: 14px; color: var(--text-light); line-height: 1.7; }
+
+    /* ── FOR / NOT FOR ── */
+    .for-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 2rem; }
+    @media (max-width: 580px) { .for-grid { grid-template-columns: 1fr; } }
+    .for-card { background: var(--white); border: 0.5px solid var(--border); border-radius: 10px; padding: 1.5rem; }
+    .for-card.yes { border-top: 3px solid var(--primary); }
+    .for-card.no  { border-top: 3px solid #ccc; }
+    .for-card-label { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem; }
+    .for-card.yes .for-card-label { color: var(--primary); }
+    .for-card.no  .for-card-label { color: var(--text-muted); }
+    .for-list { list-style: none; display: grid; gap: 10px; }
+    .for-list li { font-size: 14px; color: var(--text-light); line-height: 1.6; padding-left: 1.25rem; position: relative; }
+    .for-list li::before { position: absolute; left: 0; }
+    .for-card.yes .for-list li::before { content: '✓'; color: var(--primary); font-weight: 700; }
+    .for-card.no  .for-list li::before { content: '×'; color: #ccc; }
+
+    /* ── CHANGES ── */
+    .changes-list { list-style: none; margin-top: 1.75rem; display: grid; gap: 12px; }
+    .changes-list li {
+      display: flex; gap: 12px; align-items: flex-start;
+      font-size: 15px; color: var(--text-light); line-height: 1.65;
+    }
+    .changes-list li::before { content: '→'; color: var(--primary); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid; grid-template-columns: 280px 1fr; gap: 48px; align-items: center;
+    }
+    @media (max-width: 640px) { .about-grid { grid-template-columns: 1fr; } }
+    .about-img { width: 100%; border-radius: 8px; object-fit: cover; aspect-ratio: 3/4; object-position: top; }
+    .about-quote {
+      font-family: var(--serif); font-style: italic; font-size: 1.2rem;
+      color: var(--primary); line-height: 1.6; margin-bottom: 1.25rem;
+      border-left: 3px solid var(--primary-light); padding-left: 1.25rem;
+    }
+
+    /* ── PREIS / CTA ── */
+    .price-section {
+      background: linear-gradient(135deg, #1a0412 0%, var(--primary) 60%, var(--primary-2) 100%);
+      color: var(--white); padding: 72px 24px;
+    }
+    .price-inner { max-width: 620px; margin: 0 auto; text-align: center; }
+    .price-inner h2 {
+      font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 400; line-height: 1.25; margin-bottom: 1rem;
+    }
+    .price-inner h2 em { font-style: italic; color: #f5c9d8; }
+    .price-tag {
+      display: inline-block; background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.28); border-radius: 8px;
+      padding: 1rem 2rem; margin: 1.5rem 0; text-align: center;
+    }
+    .price-amount { font-family: var(--serif); font-size: 3rem; font-weight: 700; color: var(--white); line-height: 1; }
+    .price-later { font-size: 13px; color: rgba(255,255,255,0.55); margin-top: 4px; }
+    .price-perks { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; }
+    .perk {
+      font-size: 12px; padding: 4px 14px; border-radius: 99px;
+      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.85);
+    }
+    .price-sub { font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.8; margin-bottom: 2rem; }
+    /* Ablefy embed wrapper */
+    #embedable-form-wrapper { margin: 0 auto; }
+    .price-note { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 1.25rem; }
+
+    /* ── FAQ ── */
+    .faq-list { margin-top: 2rem; display: grid; gap: 16px; }
+    .faq-item { background: var(--bg); border-radius: 8px; padding: 1.25rem 1.5rem; }
+    .faq-q { font-weight: 600; font-size: 15px; color: var(--text); margin-bottom: 0.5rem; }
+    .faq-a { font-size: 14px; color: var(--text-light); line-height: 1.75; }
+
+    /* ── DIVIDER ── */
+    hr { border: none; border-top: 0.5px solid var(--border); }
+
+    /* ── FOOTER ── */
+    .site-footer {
+      background: #1a1020; color: rgba(255,255,255,0.45);
+      text-align: center; padding: 28px 24px; font-size: 0.8rem;
+    }
+    .footer-links { margin-bottom: 7px; display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; }
+    .footer-links a { color: rgba(255,255,255,0.65); text-decoration: none; }
+    .footer-links a:hover { color: var(--white); }
+    .footer-links span { opacity: 0.3; }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a href="https://seelenrevolte.de">
+    <img src="Logo/KB-SR__Logo_digi1.jpg" alt="SeelenRevolte by Katja Borasch" />
+  </a>
+  <a class="header-cta" href="#kaufen">Jetzt starten – 111 €</a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <span class="hero-badge">21-Tage Audio-Programm · SeelenRevolte</span>
+    <h1>Raus aus der Scham –<br><em>rein in deinen Körper.</em></h1>
+    <p class="hero-sub">Für Frauen in den Wechseljahren, die aufgehört haben, sich zu spüren – und damit aufhören wollen.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">22 Audio-Einheiten</span>
+      <span class="hero-tag">Täglich 10–15 Min.</span>
+      <span class="hero-tag">Allein · zuhause</span>
+      <span class="hero-tag">Kein Live-Call</span>
+      <span class="hero-tag">Dauerhafter Zugang</span>
+    </div>
+    <a class="btn-hero" href="#kaufen">Jetzt starten – 111 €</a>
+    <p class="hero-note">Einführungspreis · einmalig · kein Abo</p>
+  </div>
+</section>
+
+<hr>
+
+<!-- PAIN -->
+<section class="section">
+  <div class="section-inner">
+    <p class="section-label">Erkennst du dich wieder?</p>
+    <h2>Du kennst dieses Gefühl.</h2>
+    <ul class="pain-list">
+      <li>Du stehst morgens vor dem Spiegel und schaust schnell weg.</li>
+      <li>Du liegst nachts neben jemandem und fühlst dich trotzdem allein.</li>
+      <li>Du hast beim Sex schon so lange eine Rolle gespielt, dass du gar nicht mehr weißt, wie es sich anfühlt, wirklich da zu sein.</li>
+      <li>Du funktionierst. Im Alltag. Im Bett. In Beziehungen.</li>
+      <li>Und irgendwo tief drin weißt du: <strong>So will ich nicht weitermachen.</strong></li>
+    </ul>
+  </div>
+</section>
+
+<hr>
+
+<!-- WAS PASSIERT -->
+<section class="section bg-warm">
+  <div class="section-inner">
+    <p class="section-label">Was hier passiert</p>
+    <h2>21 Tage. Täglich ein Audio.<br><em>Nur du – und dein Körper.</em></h2>
+    <p>22 Audio-Einheiten von 10–15 Minuten. Keine Gruppe, kein Live-Call, keine Kamera. Jeder Tag wird einzeln freigeschaltet – weil das kein Kurs zum Durchklicken ist, sondern eine tägliche Praxis.</p>
+    <p style="margin-top:1.25rem;">Jede Einheit hat eine Kernbotschaft, eine geführte Körperübung und eine kurze Mini-Aufgabe – max. 5 Minuten. Du arbeitest allein, in deinem Tempo, in deinem Zuhause.</p>
+    <div class="phases">
+      <div class="phase-card">
+        <p class="phase-num">Phase 1 · Tag 1–7</p>
+        <p class="phase-title">Scham verstehen</p>
+        <p class="phase-body">Du hörst auf, dich selbst als Problem zu behandeln. Du verstehst, warum dein Körper sich zurückgezogen hat – und dass das keine persönliche Schwäche ist.</p>
+      </div>
+      <div class="phase-card">
+        <p class="phase-num">Phase 2 · Tag 8–14</p>
+        <p class="phase-title">Körper zurückholen</p>
+        <p class="phase-body">Raus aus dem Kopf. Du beginnst, von innen wahrzunehmen statt von außen zu beurteilen. Dein Körper fühlt sich weniger fremd an.</p>
+      </div>
+      <div class="phase-card">
+        <p class="phase-num">Phase 3 · Tag 15–21</p>
+        <p class="phase-title">Lust wieder erlauben</p>
+        <p class="phase-body">Du findest Worte für Wünsche, die jahrelang keine hatten. Du hörst auf, Lust als Gefahr zu erleben – und nimmst die Hauptrolle ein.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- FÜR WEN -->
+<section class="section">
+  <div class="section-inner">
+    <p class="section-label">Für wen ist das?</p>
+    <h2>Ehrlich gesagt.</h2>
+    <div class="for-grid">
+      <div class="for-card yes">
+        <p class="for-card-label">Für dich, wenn …</p>
+        <ul class="for-list">
+          <li>du morgens an dir vorbeischaust, statt dich wirklich anzusehen.</li>
+          <li>du beim Sex so lange funktionierst, dass du dich kaum noch erinnerst, wie sich echtes Spüren anfühlt.</li>
+          <li>du den Bauch einziehst – allein, beim Einkaufen, überall.</li>
+          <li>du irgendwann aufgehört hast, Bedürfnisse zu haben, weil es einfacher war.</li>
+          <li>du weißt, dass da noch mehr sein müsste – aber nicht weißt, wie du da hinkommst.</li>
+        </ul>
+      </div>
+      <div class="for-card no">
+        <p class="for-card-label">Nicht für dich, wenn …</p>
+        <ul class="for-list">
+          <li>du schnelle Tipps suchst.</li>
+          <li>du Selbstliebe-Affirmationen möchtest.</li>
+          <li>jemand dir sagen soll, du bist schön so wie du bist.</li>
+        </ul>
+        <p style="margin-top:1rem;font-size:14px;color:var(--text-light);line-height:1.7;">Das hier ist Arbeit. Stille Arbeit. Körpernahe Arbeit. Arbeit, die sich manchmal unangenehm anfühlt – weil Veränderung sich selten bequem anfühlt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- WAS SICH VERÄNDERT -->
+<section class="section bg-warm">
+  <div class="section-inner">
+    <p class="section-label">Was sich verändert</p>
+    <h2>Nicht sofort. Nicht dramatisch.<br><em>Aber spürbar.</em></h2>
+    <ul class="changes-list">
+      <li>Du hältst deinen Bauch nicht mehr automatisch fest.</li>
+      <li>Du schaust dich länger im Spiegel an – ohne sofort wegzusehen.</li>
+      <li>Du spürst, wo in deinem Körper sich etwas zusammenzieht – und wo Raum entsteht.</li>
+      <li>Du findest Worte für Dinge, für die du bisher keine hattest.</li>
+      <li>Du hörst auf, Sex nur zu überstehen.</li>
+    </ul>
+  </div>
+</section>
+
+<hr>
+
+<!-- ÜBER KATJA -->
+<section class="section">
+  <div class="section-inner">
+    <div class="about-grid">
+      <img class="about-img" src="Fotos/Franziska Nehmer -185 final.jpg" alt="Katja Borasch – SeelenRevolte" />
+      <div>
+        <p class="section-label">Wer ich bin</p>
+        <p class="about-quote">„Raus aus der Scham, rein in Lust."</p>
+        <p style="font-size:16px;color:var(--text-light);line-height:1.85;margin-bottom:1rem;">Ich bin Katja Borasch – Heilpraktikerin für Psychotherapie und Körperarbeit, seit 27 Jahren in der therapeutischen Arbeit.</p>
+        <p style="font-size:16px;color:var(--text-light);line-height:1.85;margin-bottom:1rem;">Ich arbeite nicht mit Oberflächenproblemen. Ich arbeite da, wo Scham sitzt: im Körper, im Nervensystem, in den Mustern, die sich jahrzehntelang eingeschrieben haben.</p>
+        <p style="font-size:16px;color:var(--text-light);line-height:1.85;">Und ich kenne das von innen. Den Sex im Dunkeln. Das Funktionieren. Das Gefühl, sich selbst nicht mehr zu spüren. Deshalb ist das hier kein Programm, das ich erdacht habe. Es ist eines, das ich selbst gegangen bin.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<!-- PREIS / ABLEFY -->
+<section class="price-section" id="kaufen">
+  <div class="price-inner">
+    <p class="section-label" style="color:rgba(255,255,255,0.55)">Deine Investition</p>
+    <h2>Du hast lange genug gewartet.<br><em>21 Tage. Dein Körper. Dein Tempo.</em></h2>
+    <div class="price-tag">
+      <div class="price-amount">111 €</div>
+      <div class="price-later">Einführungspreis · danach 222 €</div>
+    </div>
+    <div class="price-perks">
+      <span class="perk">Einmalig · kein Abo</span>
+      <span class="perk">22 Audio-Einheiten</span>
+      <span class="perk">Dauerhafter Zugang</span>
+      <span class="perk">Täglich freigeschaltet</span>
+    </div>
+    <p class="price-sub">Kein Live-Call. Keine Kamera. Keine Gruppe.<br>Nur du – und der erste Schritt zurück zu dir.</p>
+    <div id='embedable-form-wrapper'></div>
+    <p class="price-note">Sicher bezahlen · sofortiger Zugang nach Kauf</p>
+  </div>
+</section>
+
+<hr>
+
+<!-- FAQ -->
+<section class="section bg-warm">
+  <div class="section-inner">
+    <p class="section-label">Häufige Fragen</p>
+    <h2>Noch Fragen?</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <p class="faq-q">Was muss ich mitbringen?</p>
+        <p class="faq-a">Nur dich. Ein ruhiges Päckchen Zeit täglich – 15–20 Minuten. Alles andere bekommst du von mir.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">Brauche ich einen Partner?</p>
+        <p class="faq-a">Nein. Das Programm ist vollständig auf dich ausgerichtet. Es geht um deine Verbindung zu dir – nicht um Beziehungsarbeit.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">Was, wenn ich steckenbleibe?</p>
+        <p class="faq-a">Das Programm ist so aufgebaut, dass es dich führt. Wenn du spürst, dass du mehr brauchst, gibt es nach Tag 21 einen nächsten Schritt – als persönliche Begleitung.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">Wie lange habe ich Zugang?</p>
+        <p class="faq-a">Dauerhaft. Du kannst einzelne Tage wiederholen und in deinem eigenen Tempo nacharbeiten.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">Wann werde ich die Audios hören können?</p>
+        <p class="faq-a">Sofort nach dem Kauf startet Tag 1. Jeden Tag wird automatisch die nächste Einheit freigeschaltet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="impressum.html">Impressum</a>
+    <span>·</span>
+    <a href="datenschutz.html">Datenschutz</a>
+    <span>·</span>
+    <a href="https://seelenrevolte.de">Website</a>
+  </div>
+  <div>© 2026 SeelenRevolte · Katja Borasch · Fotos: Franziska Nehmer</div>
+</footer>
+
+<script data-token='D7KofoMpaf7moZZEMy_G' id='embedable-form-script' src='https://myablefy.com/assets/embedable_form/index.js' defer></script>
+</body>
+</html>
