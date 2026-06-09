@@ -666,10 +666,10 @@
   </footer>
 
   <script>
-    // â”€â”€â”€ KONFIGURATION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-    // Trag hier deinen Anthropic API-SchlÃ¼ssel ein:
-    const ANTHROPIC_API_KEY = "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";
-    // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // API-Key wird einmalig im Browser gespeichert â€“ nie auf GitHub
+    function getKey() { return localStorage.getItem("sr_lk_key") || ""; }
+    function saveKey(k) { localStorage.setItem("sr_lk_key", k); }
+    const ANTHROPIC_API_KEY = getKey();
 
     const SYSTEM_PROMPT = `# Der Lust-Kompass â€“ System-Prompt
 ### Version: MiniKurs-Funnel | Ziel: â€žWieder Frau sein dÃ¼rfen"
@@ -737,9 +737,11 @@ Pflicht-Bausteine:
     const apiNotice   = document.getElementById("api-key-notice");
 
     document.getElementById("start-btn").addEventListener("click", () => {
-      if (!ANTHROPIC_API_KEY) {
-        apiNotice.style.display = "block";
-        return;
+      const key = getKey();
+      if (!key) {
+        const entered = prompt("Einmaliger Setup (nur du siehst das):\nBitte deinen Anthropic API-Key eingeben:");
+        if (!entered || !entered.trim()) return;
+        saveKey(entered.trim());
       }
       startScreen.style.display = "none";
       messagesEl.style.display  = "flex";
@@ -776,7 +778,7 @@ Pflicht-Bausteine:
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "x-api-key": ANTHROPIC_API_KEY,
+            "x-api-key": getKey(),
             "anthropic-version": "2023-06-01",
             "anthropic-dangerous-direct-browser-access": "true"
           },
