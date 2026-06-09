@@ -17,13 +17,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Inject API key into lust-profil.html
+      - name: Inject API key into HTML files
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           sed "s|__ANTHROPIC_API_KEY__|${ANTHROPIC_API_KEY}|g" \
             lust-profil.html > lust-profil-deployed.html
           mv lust-profil-deployed.html lust-profil.html
+          sed "s|__ANTHROPIC_API_KEY__|${ANTHROPIC_API_KEY}|g" \
+            lust-kompass.html > lust-kompass-deployed.html
+          mv lust-kompass-deployed.html lust-kompass.html
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
