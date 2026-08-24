@@ -1,864 +1,706 @@
-<!DOCTYPE html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Der Lust-Kompass â€“ Deine persÃ¶nliche Blockade-Analyse | SeelenRevolte</title>
-  <meta name="description" content="Finde heraus, welcher Lust-Blockade-Typ du bist â€“ und was dich wirklich von Lust, Lebensfreude und erfÃ¼llter SexualitÃ¤t trennt. Deine persÃ¶nliche Analyse mit Katjas Lust-Kompass." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<title>Lust-Kompass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Pinyon+Script&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --espresso-deep:#1C1611;
+    --espresso:#2A211B;
+    --espresso-high:#352A22;
+    --bronze:#9C7A4B;
+    --bronze-light:#C9A876;
+    --salbei:#8A8B6C;
+    --sand:#E7DAC6;
+    --sand-dim:#B8A98C;
+    --font-display:'Cormorant Garamond', 'Iowan Old Style', Georgia, serif;
+    --font-script:'Pinyon Script', cursive;
+    --font-body:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--espresso-deep);
+    color:var(--sand);
+    font-family:var(--font-body);
+    line-height:1.7;
+    font-size:16px;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    pointer-events:none;
+    z-index:1;
+    background-image:radial-gradient(circle at 1px 1px, rgba(231,218,198,0.035) 1px, transparent 0);
+    background-size:3px 3px;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 1.5rem;}
+  .eyebrow{
+    font-size:0.72rem;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--bronze-light);
+    font-weight:600;
+  }
+  h1,h2,h3{font-family:var(--font-display);font-weight:500;text-wrap:balance;color:var(--sand);}
+  section{position:relative;z-index:2;}
 
-    :root {
-      --primary:    #810947;
-      --primary-2:  #871d41;
-      --bg:         #f8f2f0;
-      --text:       #332e3c;
-      --text-light: #5e5668;
-      --white:      #ffffff;
-      --gold:       #e8a030;
-    }
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:6.5rem 0 5rem;
+    position:relative;
+  }
+  .hero::before{
+    content:"";
+    position:absolute;
+    top:-20%;left:-10%;
+    width:60vw;height:60vw;
+    max-width:700px;max-height:700px;
+    background:radial-gradient(circle, rgba(156,122,75,0.16) 0%, transparent 70%);
+    animation:flicker 9s ease-in-out infinite;
+    z-index:-1;
+  }
+  @keyframes flicker{
+    0%,100%{opacity:0.85;transform:scale(1);}
+    50%{opacity:1;transform:scale(1.06);}
+  }
+  .hero .eyebrow{margin-bottom:1.4rem;display:block;}
+  .hero h1{
+    font-size:clamp(2.3rem, 4.6vw + 1rem, 3.8rem);
+    line-height:1.12;
+    max-width:14ch;
+  }
+  .hero h1 em{font-style:italic;color:var(--bronze-light);}
+  .hero p.sub{
+    margin-top:1.6rem;
+    max-width:46ch;
+    font-size:1.1rem;
+    color:var(--sand-dim);
+  }
+  .cta-btn{
+    display:inline-block;
+    margin-top:2.4rem;
+    background:var(--bronze);
+    color:var(--espresso-deep);
+    font-family:var(--font-body);
+    font-weight:600;
+    font-size:1rem;
+    padding:1rem 2.1rem;
+    border:none;
+    border-radius:2px;
+    cursor:pointer;
+    letter-spacing:0.01em;
+    transition:background 0.2s ease, transform 0.2s ease;
+  }
+  .cta-btn:hover{background:var(--bronze-light);transform:translateY(-1px);}
+  .cta-btn:focus-visible{outline:2px solid var(--sand);outline-offset:3px;}
+  .microtrust{
+    margin-top:1.1rem;
+    font-size:0.8rem;
+    color:var(--salbei);
+    letter-spacing:0.03em;
+  }
 
-    body {
-      font-family: 'IBM Plex Sans', sans-serif;
-      color: var(--text);
-      background: var(--white);
-      line-height: 1.7;
-    }
+  /* ---------- QUOTE BRIDGE ---------- */
+  .quote{
+    padding:3.5rem 0;
+    border-top:1px solid rgba(156,122,75,0.25);
+    border-bottom:1px solid rgba(156,122,75,0.25);
+  }
+  .quote p{
+    font-family:var(--font-display);
+    font-style:italic;
+    font-size:clamp(1.3rem,2.2vw + 0.6rem,1.7rem);
+    color:var(--sand);
+    max-width:34ch;
+  }
 
-    /* â”€â”€ HEADER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .site-header {
-      background: var(--white);
-      border-bottom: 3px solid var(--primary);
-      padding: 14px 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .site-header img { max-height: 90px; width: auto; }
+  /* ---------- CONFESSIONS ---------- */
+  .confessions{padding:6rem 0;}
+  .confessions h2{
+    font-size:clamp(1.7rem,2.6vw + 0.8rem,2.3rem);
+    margin-bottom:3rem;
+    max-width:16ch;
+  }
+  .confession-line{
+    font-size:1.12rem;
+    color:var(--sand-dim);
+    max-width:38ch;
+    padding:1.1rem 0 1.1rem 1.4rem;
+    border-left:2px solid rgba(156,122,75,0.4);
+    opacity:0;
+    transform:translateY(14px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  .confession-line.visible{opacity:1;transform:translateY(0);}
+  .confession-line:nth-child(2){margin-left:1.5rem;}
+  .confession-line:nth-child(3){margin-left:3rem;}
+  .confession-line:nth-child(4){margin-left:0.8rem;}
+  .confession-line:nth-child(5){margin-left:2.4rem;}
+  .confession-line:nth-child(6){margin-left:0.5rem;}
+  .confession-line + .confession-line{margin-top:0.6rem;}
+  .confession-line strong{color:var(--sand);font-weight:500;}
 
-    /* â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .hero {
-      background: linear-gradient(135deg, #1e0515 0%, var(--primary) 55%, var(--primary-2) 100%);
-      color: var(--white);
-      overflow: hidden;
-    }
-    .hero-grid {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 420px 1fr;
-      align-items: center;
-    }
-    @media (max-width: 860px) {
-      .hero-grid { grid-template-columns: 1fr; }
-      .hero-photo { max-height: 340px; overflow: hidden; }
-    }
-    .hero-content { padding: 70px 40px 70px 48px; }
-    @media (max-width: 860px) { .hero-content { padding: 50px 24px 40px; } }
+  /* ---------- VALUE POINTS ---------- */
+  .values{padding:5rem 0;background:var(--espresso);}
+  .values h2{font-size:clamp(1.7rem,2.6vw + 0.8rem,2.3rem);margin-bottom:2.5rem;max-width:18ch;}
+  .value-grid{display:grid;gap:1.8rem;}
+  .value-item{
+    display:flex;gap:1rem;
+    padding-bottom:1.8rem;
+    border-bottom:1px solid rgba(156,122,75,0.2);
+  }
+  .value-item:last-child{border-bottom:none;padding-bottom:0;}
+  .value-mark{
+    font-family:var(--font-display);
+    font-style:italic;
+    color:var(--bronze-light);
+    font-size:1.3rem;
+    line-height:1.6;
+    flex-shrink:0;
+  }
+  .value-item p{color:var(--sand-dim);font-size:1.02rem;max-width:44ch;}
 
-    .hero-eyebrow {
-      display: inline-block;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 30px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      padding: 5px 16px;
-      margin-bottom: 24px;
-    }
-    .hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.75rem, 3.8vw, 2.75rem);
-      line-height: 1.22;
-      margin-bottom: 20px;
-    }
-    .hero h1 em { font-style: italic; color: #f5c9d8; }
-    .hero-sub {
-      font-size: 1rem;
-      font-weight: 300;
-      line-height: 1.65;
-      opacity: 0.9;
-      margin-bottom: 36px;
-      max-width: 500px;
-    }
-    .btn-primary {
-      display: inline-block;
-      background: var(--white);
-      color: var(--primary);
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      padding: 15px 36px;
-      border-radius: 50px;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
-    }
-    .btn-primary:hover {
-      background: var(--bg);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 28px rgba(0,0,0,0.3);
-    }
-    .hero-note { margin-top: 12px; font-size: 0.78rem; opacity: 0.65; }
-    .hero-photo { height: 100%; min-height: 480px; }
-    .hero-photo img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center top; display: block;
-    }
-    @media (max-width: 860px) { .hero-photo { min-height: 300px; height: 300px; } }
+  /* ---------- HOW IT WORKS ---------- */
+  .how{padding:5.5rem 0;}
+  .how h2{font-size:clamp(1.7rem,2.6vw + 0.8rem,2.3rem);margin-bottom:2.6rem;max-width:16ch;}
+  .steps{display:grid;gap:1.6rem;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));}
+  .step{padding:1.6rem 1.4rem;background:var(--espresso);border:1px solid rgba(156,122,75,0.18);}
+  .step .num{
+    font-family:var(--font-display);
+    font-size:1.6rem;
+    color:var(--bronze);
+    display:block;
+    margin-bottom:0.6rem;
+  }
+  .step p{color:var(--sand-dim);font-size:0.96rem;}
 
-    /* â”€â”€ INTRO QUOTE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .intro-quote { background: var(--bg); padding: 52px 24px; }
-    .intro-quote-inner {
-      max-width: 740px; margin: 0 auto;
-      border-left: 4px solid var(--primary);
-      padding-left: 28px;
-    }
-    .intro-quote blockquote {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: clamp(1.05rem, 2.5vw, 1.3rem);
-      color: var(--primary-2);
-      line-height: 1.6;
-    }
+  /* ---------- BIO ---------- */
+  .bio{padding:5.5rem 0;border-top:1px solid rgba(156,122,75,0.25);}
+  .bio .eyebrow{margin-bottom:1.2rem;}
+  .bio p{color:var(--sand-dim);max-width:52ch;font-size:1.05rem;margin-bottom:1rem;}
+  .bio .signature{
+    font-family:var(--font-script);
+    font-size:2.4rem;
+    color:var(--bronze-light);
+    margin-top:1.5rem;
+  }
+  .trustlist{margin-top:2rem;display:flex;flex-direction:column;gap:0.7rem;}
+  .trustlist div{display:flex;gap:0.7rem;font-size:0.95rem;color:var(--sand-dim);}
+  .trustlist span.check{color:var(--bronze-light);flex-shrink:0;}
 
-    /* â”€â”€ GENERIC SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .section { padding: 62px 24px; }
-    .section-inner { max-width: 780px; margin: 0 auto; }
-    .section-label {
-      font-size: 0.76rem;
-      font-weight: 700;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--primary);
-      margin-bottom: 10px;
-    }
-    .section h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.45rem, 3.2vw, 2rem);
-      color: var(--text);
-      line-height: 1.3;
-      margin-bottom: 20px;
-    }
-    .section p { font-size: 1rem; color: var(--text-light); margin-bottom: 14px; }
+  /* ---------- KOMPASS ---------- */
+  .kompass-section{
+    padding:6rem 0 7rem;
+    background:var(--espresso);
+    border-top:1px solid rgba(156,122,75,0.25);
+  }
+  .kompass-intro{text-align:left;margin-bottom:2.5rem;}
+  .kompass-intro h2{font-size:clamp(1.7rem,2.6vw + 0.8rem,2.3rem);max-width:18ch;}
+  .kompass-card{
+    background:var(--espresso-high);
+    border:1px solid rgba(156,122,75,0.3);
+    padding:2.4rem 2rem;
+    max-width:560px;
+  }
+  .progress{display:flex;gap:0.4rem;margin-bottom:1.8rem;}
+  .progress .dot{width:8px;height:8px;border-radius:50%;background:rgba(156,122,75,0.3);}
+  .progress .dot.done{background:var(--bronze-light);}
+  .kstep{display:none;}
+  .kstep.active{display:block;animation:fadein 0.4s ease;}
+  @keyframes fadein{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+  .kstep h3{font-size:1.4rem;margin-bottom:1.4rem;max-width:22ch;font-weight:500;}
+  .field{margin-bottom:1.1rem;}
+  .field label{display:block;font-size:0.82rem;color:var(--salbei);margin-bottom:0.4rem;letter-spacing:0.02em;}
+  .field input{
+    width:100%;
+    background:var(--espresso-deep);
+    border:1px solid rgba(156,122,75,0.35);
+    color:var(--sand);
+    padding:0.8rem 0.9rem;
+    font-family:var(--font-body);
+    font-size:1rem;
+    border-radius:2px;
+  }
+  .field input:focus-visible{outline:2px solid var(--bronze-light);outline-offset:1px;}
+  .option-btn{
+    display:block;
+    width:100%;
+    text-align:left;
+    background:var(--espresso-deep);
+    border:1px solid rgba(156,122,75,0.3);
+    color:var(--sand);
+    padding:0.95rem 1.1rem;
+    font-family:var(--font-body);
+    font-size:0.98rem;
+    margin-bottom:0.7rem;
+    cursor:pointer;
+    border-radius:2px;
+    transition:border-color 0.15s ease, background 0.15s ease;
+  }
+  .option-btn:hover{border-color:var(--bronze-light);background:var(--espresso-high);}
+  .option-btn:focus-visible{outline:2px solid var(--bronze-light);outline-offset:2px;}
+  .kompass-error{color:#C97A6B;font-size:0.82rem;margin-top:0.5rem;min-height:1.2em;}
+  .kstep .part-label{margin-bottom:0.3rem;}
+  .statement{margin-bottom:1.7rem;}
+  .statement:last-child{margin-bottom:0;}
+  .statement p{font-size:1rem;color:var(--sand);margin-bottom:0.6rem;}
+  .scale{display:flex;gap:0.5rem;}
+  .scale button{
+    flex:1;
+    background:var(--espresso-deep);
+    border:1px solid rgba(156,122,75,0.3);
+    color:var(--sand-dim);
+    padding:0.6rem 0.3rem;
+    font-family:var(--font-body);
+    font-size:0.7rem;
+    line-height:1.25;
+    border-radius:2px;
+    cursor:pointer;
+    text-align:center;
+    transition:border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+  }
+  .scale button:hover{border-color:var(--bronze-light);}
+  .scale button.selected{background:var(--bronze);border-color:var(--bronze);color:var(--espresso-deep);font-weight:600;}
+  .scale button:focus-visible{outline:2px solid var(--bronze-light);outline-offset:2px;}
+  .cta-btn[disabled]{opacity:0.35;pointer-events:none;}
+  .result-headline{font-family:var(--font-display);font-size:1.6rem;font-weight:500;margin-bottom:0.4rem;}
+  .result-type{font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--bronze-light);margin-bottom:1.4rem;}
+  .result-text{color:var(--sand-dim);font-size:1.03rem;margin-bottom:1.6rem;}
+  .result-lede{color:var(--sand-dim);font-size:0.92rem;margin-bottom:1.8rem;}
+  .profile{margin-bottom:2rem;}
+  .profile-row{margin-bottom:1.2rem;}
+  .profile-row:last-child{margin-bottom:0;}
+  .profile-row .plabel{display:flex;justify-content:space-between;font-size:0.85rem;color:var(--sand);margin-bottom:0.4rem;}
+  .profile-row .plabel span:last-child{color:var(--salbei);font-variant-numeric:tabular-nums;}
+  .profile-row .ptrack{height:6px;background:rgba(156,122,75,0.2);border-radius:3px;overflow:hidden;}
+  .profile-row .pfill{height:100%;background:var(--bronze-light);border-radius:3px;transition:width 0.6s ease;}
+  .expert-note{
+    border-left:3px solid var(--bronze);
+    background:rgba(156,122,75,0.1);
+    padding:1.1rem 1.3rem;
+    margin-bottom:1.8rem;
+  }
+  .expert-note .expert-tag{
+    display:block;
+    font-size:0.7rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--bronze-light);
+    margin-bottom:0.5rem;
+  }
+  .expert-note p{color:var(--sand);font-size:0.98rem;}
+  .result-cta{
+    background:var(--bronze);
+    color:var(--espresso-deep);
+    font-weight:600;
+    padding:0.95rem 1.6rem;
+    display:inline-block;
+    text-decoration:none;
+    border-radius:2px;
+    font-size:0.96rem;
+  }
+  .result-cta:hover{background:var(--bronze-light);}
+  .restart{
+    display:block;
+    margin-top:1.2rem;
+    font-size:0.82rem;
+    color:var(--salbei);
+    background:none;
+    border:none;
+    cursor:pointer;
+    text-decoration:underline;
+  }
 
-    /* â”€â”€ PAIN BULLETS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .pain-list { list-style: none; margin-top: 28px; display: grid; gap: 14px; }
-    .pain-list li {
-      background: var(--white);
-      border: 1px solid #e0d0d8;
-      border-left: 4px solid var(--primary);
-      border-radius: 8px;
-      padding: 16px 20px;
-      font-size: 0.98rem;
-      color: var(--text);
-      line-height: 1.55;
-      box-shadow: 0 2px 8px rgba(129,9,71,0.05);
-    }
-    .pain-list li .arrow { color: var(--primary); font-weight: 700; margin-right: 8px; }
+  footer{padding:3rem 0 4rem;text-align:left;}
+  footer p{font-size:0.78rem;color:var(--salbei);}
 
-    /* â”€â”€ REVEALS / DARK SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .reveals-section {
-      background: linear-gradient(160deg, #1e0515 0%, var(--primary-2) 100%);
-      color: var(--white);
-    }
-    .reveals-section .section-label { color: #f5c9d8; }
-    .reveals-section h2 { color: var(--white); }
-    .reveals-section p { color: rgba(255,255,255,0.82); }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important;transition:none !important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
 
-    .reveals-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px; margin-top: 32px;
-    }
-    .reveal-card {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 12px;
-      padding: 22px 20px;
-    }
-    .reveal-card .num {
-      display: inline-flex; align-items: center; justify-content: center;
-      width: 34px; height: 34px;
-      background: var(--bg); color: var(--primary);
-      font-weight: 700; font-size: 0.9rem;
-      border-radius: 50%; margin-bottom: 12px; flex-shrink: 0;
-    }
-    .reveal-card p { color: rgba(255,255,255,0.88); font-size: 0.96rem; margin: 0; }
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Kostenfrei · 5 Minuten · Anonym</span>
+    <h1>Wann hast du das letzte Mal wirklich <em>Lust</em> gespürt, nicht nur Pflicht oder Funktion?</h1>
+    <p class="sub">Der Lust-Kompass misst dein Muster in drei Bereichen: Körper, Stimme und Scham. Am Ende zeigt er dir ein echtes Profil davon, wo du stehst und was dein konkreter nächster Schritt ist.</p>
+    <a href="#kompass" class="cta-btn">Kompass jetzt starten</a>
+    <p class="microtrust">Du brauchst kein Konto und keine Anmeldung im Vorfeld. Du fängst einfach an.</p>
+  </div>
+</section>
 
-    /* â”€â”€ HOW IT WORKS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 24px; margin-top: 36px;
-    }
-    .step-card { text-align: center; }
-    .step-icon {
-      font-size: 2rem;
-      display: block;
-      margin-bottom: 12px;
-    }
-    .step-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      color: var(--primary);
-      margin-bottom: 8px;
-    }
-    .step-card p { font-size: 0.92rem; color: var(--text-light); margin: 0; }
+<section class="quote">
+  <div class="wrap">
+    <p>„Lust verschwindet nicht. Sie zieht sich nur zurück, hinter Pflichten, Rollen und Scham, und wartet dort auf dich."</p>
+  </div>
+</section>
 
-    /* â”€â”€ ABOUT / SPLIT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .about-section { background: var(--bg); }
-    .about-grid {
-      max-width: 1000px; margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 48px; align-items: center;
-    }
-    @media (max-width: 800px) {
-      .about-grid { grid-template-columns: 1fr; }
-      .about-photo { order: -1; }
-    }
-    .about-photo img {
-      width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 10px 40px rgba(129,9,71,0.18);
-      display: block;
-      object-fit: cover;
-      max-height: 460px;
-    }
-    .photo-credit { font-size: 0.7rem; opacity: 0.4; margin-top: 6px; }
-
-    /* â”€â”€ VISION LIST â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .vision-list { list-style: none; margin-top: 22px; display: grid; gap: 13px; }
-    .vision-list li {
-      display: flex; align-items: flex-start; gap: 13px;
-      font-size: 0.98rem; color: var(--text);
-    }
-    .vision-list .check {
-      flex-shrink: 0;
-      width: 22px; height: 22px;
-      background: var(--primary); color: var(--white);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.7rem; font-weight: 700; margin-top: 2px;
-    }
-
-    /* â”€â”€ CTA BAND â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .cta-band {
-      background: var(--bg);
-      border-top: 3px solid var(--primary);
-      padding: 64px 24px;
-      text-align: center;
-    }
-    .cta-band h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      color: var(--text);
-      margin-bottom: 14px;
-    }
-    .cta-band p { color: var(--text-light); max-width: 560px; margin: 0 auto 32px; }
-    .btn-cta {
-      display: inline-block;
-      background: var(--primary);
-      color: var(--white);
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-size: 1.05rem;
-      font-weight: 700;
-      padding: 16px 40px;
-      border-radius: 50px;
-      border: none;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
-      box-shadow: 0 4px 20px rgba(129,9,71,0.3);
-    }
-    .btn-cta:hover { background: var(--primary-2); transform: translateY(-2px); }
-
-    /* â”€â”€ CHATBOT SECTION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .chat-section {
-      background: var(--white);
-      padding: 0 0 80px;
-    }
-    .chat-intro {
-      background: linear-gradient(135deg, #1e0515 0%, var(--primary) 100%);
-      color: var(--white);
-      text-align: center;
-      padding: 48px 24px 40px;
-    }
-    .chat-intro h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      margin-bottom: 10px;
-    }
-    .chat-intro p { color: rgba(255,255,255,0.85); font-size: 0.97rem; }
-
-    #kompass-wrap {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 0 16px;
-    }
-
-    /* start screen */
-    #start-screen {
-      text-align: center;
-      padding: 52px 20px;
-    }
-    #start-screen .rose { font-size: 3rem; margin-bottom: 16px; display: block; }
-    #start-screen h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
-      color: var(--primary);
-      margin-bottom: 12px;
-    }
-    #start-screen p { color: var(--text-light); line-height: 1.8; margin-bottom: 28px; font-size: 0.97rem; }
-
-    /* messages */
-    #messages {
-      display: none;
-      flex-direction: column;
-      gap: 20px;
-      padding: 32px 0 20px;
-    }
-    .msg-row {
-      display: flex;
-      gap: 12px;
-      align-items: flex-start;
-    }
-    .msg-row.user { flex-direction: row-reverse; }
-
-    .msg-avatar {
-      width: 38px; height: 38px;
-      border-radius: 50%;
-      background: var(--primary);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.1rem;
-      flex-shrink: 0;
-    }
-    .msg-bubble {
-      max-width: 85%;
-      padding: 14px 18px;
-      border-radius: 20px;
-      font-size: 0.95rem;
-      line-height: 1.7;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
-    }
-    .msg-row.assistant .msg-bubble {
-      background: var(--white);
-      color: var(--text);
-      border-radius: 20px 20px 20px 5px;
-      border: 1px solid #eedce6;
-    }
-    .msg-row.user .msg-bubble {
-      background: var(--primary);
-      color: var(--white);
-      border-radius: 20px 20px 5px 20px;
-    }
-    .msg-bubble h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      color: var(--primary);
-      margin: 12px 0 4px;
-    }
-    .msg-bubble p { margin: 4px 0; }
-    .msg-bubble p:first-child { margin-top: 0; }
-    .msg-bubble p:last-child { margin-bottom: 0; }
-    .msg-bubble strong { font-weight: 700; }
-
-    /* typing indicator */
-    #typing {
-      display: none;
-      padding: 20px 0 0;
-    }
-    .typing-dots {
-      display: inline-flex;
-      gap: 5px;
-      align-items: center;
-      background: var(--white);
-      border: 1px solid #eedce6;
-      border-radius: 20px 20px 20px 5px;
-      padding: 14px 18px;
-    }
-    .typing-dots span {
-      width: 7px; height: 7px;
-      background: var(--primary);
-      border-radius: 50%;
-      animation: bounce 1.2s infinite;
-      opacity: 0.6;
-    }
-    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes bounce {
-      0%, 60%, 100% { transform: translateY(0); }
-      30% { transform: translateY(-6px); }
-    }
-
-    /* input bar */
-    #input-bar {
-      display: none;
-      gap: 10px;
-      margin-top: 16px;
-      padding-top: 16px;
-      border-top: 1px solid #f0e0e8;
-      align-items: flex-end;
-    }
-    #chat-input {
-      flex: 1;
-      border: 1.5px solid #d9cdd5;
-      border-radius: 16px;
-      padding: 12px 16px;
-      font-family: 'IBM Plex Sans', sans-serif;
-      font-size: 0.95rem;
-      color: var(--text);
-      resize: none;
-      outline: none;
-      line-height: 1.6;
-      background: var(--bg);
-      transition: border-color 0.2s;
-      min-height: 52px;
-    }
-    #chat-input:focus { border-color: var(--primary); }
-    #chat-input::placeholder { color: #c0b8be; }
-    #send-btn {
-      width: 48px; height: 48px;
-      background: var(--primary);
-      color: var(--white);
-      border: none;
-      border-radius: 14px;
-      cursor: pointer;
-      font-size: 1.2rem;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s, transform 0.15s;
-      flex-shrink: 0;
-    }
-    #send-btn:hover:not(:disabled) { background: var(--primary-2); transform: translateY(-1px); }
-    #send-btn:disabled { background: #d9cdd5; cursor: default; }
-
-    /* API key note */
-    #api-key-notice {
-      background: #fff8f0;
-      border: 1px solid #f0d0a0;
-      border-radius: 10px;
-      padding: 14px 18px;
-      font-size: 0.85rem;
-      color: #7a5a30;
-      margin: 24px 0 0;
-      line-height: 1.6;
-      display: none;
-    }
-
-    /* â”€â”€ FOOTER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
-    .site-footer {
-      background: #1a1020;
-      color: rgba(255,255,255,0.45);
-      text-align: center;
-      padding: 28px 24px;
-      font-size: 0.8rem;
-    }
-    .footer-links { margin-bottom: 7px; display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; }
-    .footer-links a { color: rgba(255,255,255,0.65); text-decoration: none; }
-    .footer-links a:hover { color: var(--white); }
-    .footer-links span { opacity: 0.3; }
-  </style>
-</head>
-<body>
-
-  <!-- HEADER -->
-  <header class="site-header">
-    <a href="https://seelenrevolte.de">
-      <img src="Logo/KB-SR__Logo_digi1.jpg" alt="SeelenRevolte by Katja Borasch" />
-    </a>
-  </header>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-grid">
-      <div class="hero-photo">
-        <img src="Fotos/Franziska Nehmer -163 final.jpg" alt="Katja Borasch â€“ SeelenRevolte" />
-      </div>
-      <div class="hero-content">
-        <span class="hero-eyebrow">ðŸ§­ Kostenfreie Analyse</span>
-        <h1>Was hÃ¤lt dich wirklich von <em>Lust, Lebensfreude und erfÃ¼llter SexualitÃ¤t</em> zurÃ¼ck?</h1>
-        <p class="hero-sub">Dein persÃ¶nlicher Lust-Kompass zeigt dir in einem echten GesprÃ¤ch, welches Muster dich blockiert â€“ und was dein nÃ¤chster konkreter Schritt ist.</p>
-        <a href="#kompass" class="btn-primary">Jetzt Kompass starten âœ¨</a>
-        <p class="hero-note">Individuell Â· Tiefgehend Â· Kostenlos</p>
-      </div>
+<section class="confessions">
+  <div class="wrap">
+    <h2>Erkennst du dich wieder?</h2>
+    <div id="confession-list">
+      <p class="confession-line">Du duschst schnell, ohne hinzusehen. Körperpflege ist für dich <strong>Pflichtprogramm</strong>, keine Zuwendung.</p>
+      <p class="confession-line">Sex läuft nach <strong>seinen Regeln</strong>. Du bleibst unter der Decke, lässt das Licht aus, und froh bist du, wenn es schnell vorbei ist.</p>
+      <p class="confession-line">Du weißt nicht mehr, wann du zuletzt <strong>allein herausgefunden</strong> hast, was dir eigentlich gefällt.</p>
+      <p class="confession-line">Die Wechseljahre verändern deinen Körper, und niemand hat dir gezeigt, wie du <strong>wieder Zugang</strong> findest.</p>
+      <p class="confession-line">Innerlich sagst du dir, dass du zu alt bist, zu viel Bauch hast und sowieso niemanden mehr <strong>hinterm Ofen hervorlockst</strong>.</p>
+      <p class="confession-line">Du funktionierst für alle, für den Partner, die Kinder, den Job. Für <strong>dich selbst</strong> bleibt nichts mehr übrig.</p>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- INTRO QUOTE -->
-  <section class="intro-quote">
-    <div class="intro-quote-inner">
-      <blockquote>
-        â€žLust stirbt nicht einfach so. Sie versteckt sich hinter allem, was wir gelernt haben zu sein â€“ und wartet darauf, endlich wieder gesehen zu werden."
-      </blockquote>
+<section class="values">
+  <div class="wrap">
+    <h2>Was der Kompass dir zeigt</h2>
+    <div class="value-grid">
+      <div class="value-item"><span class="value-mark">·</span><p>Du bekommst dein Blockade-Profil in drei Bereichen, nämlich Körperzugang, eigene Stimme und Scham, nicht nur als Label, sondern mit echten Zahlen.</p></div>
+      <div class="value-item"><span class="value-mark">·</span><p>Du bekommst dein stärkstes Muster benannt, konkret und ohne Umschreibung.</p></div>
+      <div class="value-item"><span class="value-mark">·</span><p>Du siehst, was dieses Muster dich gerade kostet und was möglich wäre, wenn du es auflöst.</p></div>
+      <div class="value-item"><span class="value-mark">·</span><p>Du bekommst deinen konkreten nächsten Schritt, klar, liebevoll und ohne Umwege.</p></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- KENNT DU DAS -->
-  <section class="section">
-    <div class="section-inner">
-      <div class="section-label">Erkennst du dich wieder?</div>
-      <h2>Du kennst das GefÃ¼hl, dass etwas fehlt â€“ aber du weiÃŸt nicht genau, was.</h2>
-      <ul class="pain-list">
-        <li><span class="arrow">â€º</span>Du fÃ¼hlst dich fremd in deinem eigenen KÃ¶rper â€“ als wÃ¤rst du eine Beobachterin deines eigenen Lebens.</li>
-        <li><span class="arrow">â€º</span>Lust? Das war mal. Jetzt ist da vor allem ErschÃ¶pfung, Pflicht und das GefÃ¼hl, irgendwie nicht mehr ganz du selbst zu sein.</li>
-        <li><span class="arrow">â€º</span>Du funktionierst â€“ fÃ¼r alle. FÃ¼r deinen Partner, die Kinder, den Job. Nur fÃ¼r dich selbst nicht mehr wirklich.</li>
-        <li><span class="arrow">â€º</span>Die Wechseljahre haben deinen KÃ¶rper verÃ¤ndert â€“ und mit ihm etwas, das du noch gar nicht benennen kannst.</li>
-        <li><span class="arrow">â€º</span>Du sehnst dich danach, wieder Frau zu sein. Nicht Mutter, nicht Partnerin, nicht FunktionstrÃ¤gerin. Einfach du.</li>
-      </ul>
+<section class="how">
+  <div class="wrap">
+    <h2>So funktioniert's</h2>
+    <div class="steps">
+      <div class="step"><span class="num">1</span><p>Du bewertest neun kurze Aussagen auf einer Skala. Du musst dabei nicht grübeln, dein erster Impuls reicht.</p></div>
+      <div class="step"><span class="num">2</span><p>Die Aussagen decken drei Bereiche ab: deinen Körper, deine Stimme, deine Scham.</p></div>
+      <div class="step"><span class="num">3</span><p>Am Ende siehst du dein Profil als Balken. Das ist nicht nur ein Label, sondern eine echte Landkarte.</p></div>
+      <div class="step"><span class="num">4</span><p>Am Schluss bekommst du einen konkreten nächsten Schritt, der genau zu diesem Muster passt.</p></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- WHAT THE COMPASS REVEALS -->
-  <section class="section reveals-section">
-    <div class="section-inner">
-      <div class="section-label">Was der Lust-Kompass zeigt</div>
-      <h2>Eine Analyse, die dich wirklich sieht</h2>
-      <p>Der Lust-Kompass ist kein Fragebogen mit Multiple-Choice-KÃ¤stchen. Er fÃ¼hrt ein echtes, adaptives GesprÃ¤ch mit dir â€“ und zeigt dir am Ende prÃ¤zise, was dich blockiert und was mÃ¶glich ist.</p>
-      <div class="reveals-grid">
-        <div class="reveal-card">
-          <div class="num">1</div>
-          <p>Dein ganz persÃ¶nliches Blockade-Muster â€“ was dich von Lust und Lebensfreude trennt.</p>
-        </div>
-        <div class="reveal-card">
-          <div class="num">2</div>
-          <p>Was dich antreibt und was dich kostet â€“ deine verborgenen Energiequellen.</p>
-        </div>
-        <div class="reveal-card">
-          <div class="num">3</div>
-          <p>Was wirklich mÃ¶glich wÃ¤re â€“ wenn du diesen einen Schritt machst.</p>
-        </div>
-        <div class="reveal-card">
-          <div class="num">4</div>
-          <p>Deinen konkreten nÃ¤chsten Schritt â€“ klar, liebevoll und ohne Umwege.</p>
-        </div>
-      </div>
-      <div style="text-align:center; margin-top:40px;">
-        <a href="#kompass" class="btn-primary" style="background:var(--white);color:var(--primary);">ðŸ§­ Zum Lust-Kompass</a>
-      </div>
+<section class="bio">
+  <div class="wrap">
+    <span class="eyebrow">Deine Begleiterin</span>
+    <h2 style="margin-top:1rem;">Katja Borasch · SeelenRevolte</h2>
+    <p style="margin-top:1.2rem;">Ich begleite Frauen zwischen 38 und 58, die in der Perimenopause oder Menopause merken, dass sich ihr Körper verändert, während der Zugang zu Lust, Lebendigkeit und einer wirklich erfüllten Sexualität noch fehlt. Es sind Frauen, die eher funktionieren als fühlen und sich insgeheim fragen, ob sie überhaupt noch begehrenswert sind.</p>
+    <p>Diese Veränderung passiert nicht irgendwann, sondern jetzt, in diesem Körper, in diesem Leben.</p>
+    <div class="trustlist">
+      <div><span class="check">✓</span><span>Ich bin Heilpraktikerin für Psychotherapie, Transformationstherapeutin und in Holistic Tantra ausgebildet, und ich kenne den Weg aus diesem Muster heraus, nicht nur die Theorie dazu.</span></div>
+      <div><span class="check">✓</span><span>Ich arbeite mit der Lust-Revolte-Methode, die Körperarbeit, Scham-Auflösung und weibliche Essenz verbindet.</span></div>
+      <div><span class="check">✓</span><span>Der Lust-Kompass ist dein erster Schritt in einen sicheren, privaten Raum, und ich bin dabei an deiner Seite, du bist nicht allein.</span></div>
+      <div><span class="check">✓</span><span>Es gibt hier kein Gruppenformat und kein Funktionieren, sondern nur dich, deine Wahrheit und jemanden, der dich da herausbegleitet.</span></div>
     </div>
-  </section>
+    <p class="signature">Katja</p>
+  </div>
+</section>
 
-  <!-- HOW IT WORKS -->
-  <section class="section" style="background: var(--bg);">
-    <div class="section-inner">
-      <div class="section-label">So funktioniert es</div>
-      <h2>Ein GesprÃ¤ch. Deine Wahrheit.</h2>
-      <p>Der Lust-Kompass fÃ¼hrt dich in nur wenigen Minuten durch eine tiefe, persÃ¶nliche Analyse.</p>
-      <div class="steps-grid">
-        <div class="step-card">
-          <span class="step-icon">ðŸŒ¹</span>
-          <h3>Schritt 1</h3>
-          <p>Du gibst ein paar persÃ¶nliche Daten â€“ und das GesprÃ¤ch beginnt ganz sanft.</p>
-        </div>
-        <div class="step-card">
-          <span class="step-icon">ðŸ’¬</span>
-          <h3>Schritt 2</h3>
-          <p>Der Kompass stellt dir bis zu 5 adaptive Fragen â€“ individuell auf dich zugeschnitten.</p>
-        </div>
-        <div class="step-card">
-          <span class="step-icon">ðŸªž</span>
-          <h3>Schritt 3</h3>
-          <p>Nach jeder Antwort wirst du gespiegelt â€“ warm, tief, ohne Urteil.</p>
-        </div>
-        <div class="step-card">
-          <span class="step-icon">ðŸ§­</span>
-          <h3>Schritt 4</h3>
-          <p>Du erhÃ¤ltst deinen persÃ¶nlichen Abschlussbericht â€“ mit klarer Einladung zum nÃ¤chsten Schritt.</p>
-        </div>
-      </div>
+<section class="kompass-section" id="kompass">
+  <div class="wrap">
+    <div class="kompass-intro">
+      <span class="eyebrow">Der Lust-Kompass</span>
+      <h2 style="margin-top:1rem;">Bist du bereit, dich selbst zu sehen?</h2>
     </div>
-  </section>
 
-  <!-- ABOUT KATJA -->
-  <section class="section about-section">
-    <div class="about-grid">
-      <div class="about-text">
-        <div class="section-label">Deine Begleiterin</div>
-        <h2>Katja Borasch â€“ SeelenRevolte</h2>
-        <p>Ich bin Katja. Ich begleite Frauen zwischen 38 und 58, die sich in den Wechseljahren fremd in ihrem KÃ¶rper fÃ¼hlen â€“ und die sich wÃ¼nschen, endlich wieder Lust, Lebensfreude und erfÃ¼llte SexualitÃ¤t zu spÃ¼ren.</p>
-        <p>Nicht irgendwann. Jetzt. In diesem KÃ¶rper. In diesem Leben.</p>
-        <ul class="vision-list">
-          <li>
-            <span class="check">âœ“</span>
-            <span>Ich arbeite mit der Lust-Revolte-Methode â€“ einem tiefen, systemischen Ansatz aus KÃ¶rperarbeit, Scham-AuflÃ¶sung und weiblicher Essenz.</span>
-          </li>
-          <li>
-            <span class="check">âœ“</span>
-            <span>Der Lust-Kompass ist dein erster Schritt in diesen sicheren, privaten Raum.</span>
-          </li>
-          <li>
-            <span class="check">âœ“</span>
-            <span>Kein Gruppenformat. Kein Funktionieren. Nur du und deine Wahrheit.</span>
-          </li>
-        </ul>
-      </div>
-      <div class="about-photo">
-        <img src="Fotos/Franziska Nehmer -176 final.jpg" alt="Katja Borasch â€“ SeelenRevolte" />
-        <p class="photo-credit">Foto: Franziska Nehmer</p>
-      </div>
-    </div>
-  </section>
+    <div class="kompass-card">
+      <div class="progress" id="progress"></div>
 
-  <!-- CTA BAND vor Kompass -->
-  <section class="cta-band">
-    <h2>Bereit, dich selbst zu sehen?</h2>
-    <p>Dieser Kompass ist fÃ¼r dich. Kein Test, keine Bewertung â€“ ein echtes GesprÃ¤ch, das dich begleitet.</p>
-    <a href="#kompass" class="btn-cta">ðŸ§­ Lust-Kompass jetzt starten</a>
-  </section>
-
-  <!-- CHATBOT SECTION -->
-  <section class="chat-section" id="kompass">
-    <div class="chat-intro">
-      <h2>ðŸ§­ Dein persÃ¶nlicher Lust-Kompass</h2>
-      <p>Ein geschÃ¼tzter Raum Â· Deine individuelle Analyse Â· Nur fÃ¼r dich</p>
-    </div>
-    <div id="kompass-wrap">
-      <div id="start-screen">
-        <span class="rose">ðŸŒ¹</span>
-        <h3>Willkommen in deinem sicheren Raum</h3>
-        <p>
-          In diesem GesprÃ¤ch entfaltet sich deine persÃ¶nliche Analyse â€“<br>
-          welches Muster dich von Lust, Lebensfreude und Verbindung zu dir selbst trennt.<br>
-          Und was dein nÃ¤chster Schritt ist.
-        </p>
-        <button class="btn-cta" id="start-btn">Jetzt starten âœ¨</button>
+      <div class="kstep active" data-step="0">
+        <h3>Wohin soll ich dein Ergebnis schicken?</h3>
+        <div class="field">
+          <label for="fname">Vorname</label>
+          <input type="text" id="fname" autocomplete="given-name">
+        </div>
+        <div class="field">
+          <label for="femail">E-Mail-Adresse</label>
+          <input type="email" id="femail" autocomplete="email">
+        </div>
+        <p class="kompass-error" id="err-0"></p>
+        <button class="cta-btn" style="margin-top:0.4rem;" onclick="goToQuestions()">Jetzt starten ✨</button>
       </div>
 
-      <div id="messages"></div>
-
-      <div id="typing">
-        <div class="msg-row assistant" style="gap:12px;align-items:flex-start;">
-          <div class="msg-avatar">ðŸ§­</div>
-          <div class="typing-dots">
-            <span></span><span></span><span></span>
+      <div class="kstep" data-step="1">
+        <span class="eyebrow part-label" style="display:block;">Teil 1 von 3 · Dein Körper</span>
+        <h3 style="margin-top:0.8rem;">Wie ehrlich stimmen diese drei Sätze für dich gerade?</h3>
+        <div class="statement">
+          <p>Ich könnte dir nicht sagen, wo an meinem Körper ich gerade gern berührt werden möchte.</p>
+          <div class="scale" data-q="q1">
+            <button onclick="selectScale('q1',0,this)">stimmt<br>gar nicht</button>
+            <button onclick="selectScale('q1',1,this)">stimmt<br>eher nicht</button>
+            <button onclick="selectScale('q1',2,this)">stimmt<br>eher</button>
+            <button onclick="selectScale('q1',3,this)">stimmt<br>total</button>
           </div>
         </div>
+        <div class="statement">
+          <p>Wenn ich in den Spiegel schaue, sehe ich zuerst, was nicht mehr passt.</p>
+          <div class="scale" data-q="q2">
+            <button onclick="selectScale('q2',0,this)">stimmt<br>gar nicht</button>
+            <button onclick="selectScale('q2',1,this)">stimmt<br>eher nicht</button>
+            <button onclick="selectScale('q2',2,this)">stimmt<br>eher</button>
+            <button onclick="selectScale('q2',3,this)">stimmt<br>total</button>
+          </div>
+        </div>
+        <div class="statement">
+          <p>Ich habe keinen klaren Draht mehr zu dem, was sich gerade körperlich bei mir verändert (Wechseljahre).</p>
+          <div class="scale" data-q="q3">
+            <button onclick="selectScale('q3',0,this)">stimmt<br>gar nicht</button>
+            <button onclick="selectScale('q3',1,this)">stimmt<br>eher nicht</button>
+            <button onclick="selectScale('q3',2,this)">stimmt<br>eher</button>
+            <button onclick="selectScale('q3',3,this)">stimmt<br>total</button>
+          </div>
+        </div>
+        <p class="kompass-error" id="err-1"></p>
+        <button class="cta-btn" id="next-1" disabled onclick="goToStep(2,1)">Weiter</button>
       </div>
 
-      <div id="input-bar">
-        <textarea id="chat-input" rows="2" placeholder="Schreib hier deine Antwort â€¦"></textarea>
-        <button id="send-btn" title="Senden">âž¤</button>
+      <div class="kstep" data-step="2">
+        <span class="eyebrow part-label" style="display:block;">Teil 2 von 3 · Deine Stimme</span>
+        <h3 style="margin-top:0.8rem;">Wie sieht es mit diesen drei Sätzen aus?</h3>
+        <div class="statement">
+          <p>Bei Nähe und Sex richte ich mich vor allem danach, was der andere will.</p>
+          <div class="scale" data-q="q4">
+            <button onclick="selectScale('q4',0,this)">stimmt<br>gar nicht</button>
+            <button onclick="selectScale('q4',1,this)">stimmt<br>eher nicht</button>
+            <button onclick="selectScale('q4',2,this)">stimmt<br>eher</button>
+            <button onclick="selectScale('q4',3,this)">stimmt<br>total</button>
+          </div>
+        </div>
+        <div class="statement">
+          <p>Ich habe schon lange nicht mehr laut gesagt, was ich mir wünsche, weil ich Angst habe, zu viel zu verlangen.</p>
+          <div class="scale" data-q="q5">
+            <button onclick="selectScale('q5',0,this)">stimmt<br>gar nicht</button>
+            <button onclick="selectScale('q5',1,this)">stimmt<br>eher nicht</button>
+            <button onclick="selectScale('q5',2,this)">stimmt<br>eher</button>
+            <button onclick="selectScale('q5',3,this)">stimmt<br>total</button>
+          </div>
+        </div>
+        <div class="statement">
+          <p>Ich funktioniere für alle, für den Partner, die Kinder, den Job. Für mich bleibt am Ende nichts mehr übrig.</p>
+          <div class="scale" data-q="q6">
+            <button onclick="selectScale('q6',0,this)">stimmt<br>gar nicht</button>
+            <button onclick="selectScale('q6',1,this)">stimmt<br>eher nicht</button>
+            <button onclick="selectScale('q6',2,this)">stimmt<br>eher</button>
+            <button onclick="selectScale('q6',3,this)">stimmt<br>total</button>
+          </div>
+        </div>
+        <p class="kompass-error" id="err-2"></p>
+        <button class="cta-btn" id="next-2" disabled onclick="goToStep(3,2)">Weiter</button>
       </div>
 
-      <div id="api-key-notice">
-        âš ï¸ <strong>Hinweis fÃ¼r die Einrichtung:</strong> Bitte trag deinen Anthropic API-SchlÃ¼ssel in die Variable <code>ANTHROPIC_API_KEY</code> am Anfang des Skripts ein, damit der Lust-Kompass funktioniert.
+      <div class="kstep" data-step="3">
+        <span class="eyebrow part-label" style="display:block;">Teil 3 von 3 · Deine Scham</span>
+        <h3 style="margin-top:0.8rem;">Hier kommen die letzten drei Sätze.</h3>
+        <div class="statement">
+          <p>Über meine Lust oder fehlende Lust spreche ich mit niemandem, nicht einmal mit meiner besten Freundin.</p>
+          <div class="scale" data-q="q7">
+            <button onclick="selectScale('q7',0,this)">stimmt<br>gar nicht</button>
+            <button onclick="selectScale('q7',1,this)">stimmt<br>eher nicht</button>
+            <button onclick="selectScale('q7',2,this)">stimmt<br>eher</button>
+            <button onclick="selectScale('q7',3,this)">stimmt<br>total</button>
+          </div>
+        </div>
+        <div class="statement">
+          <p>Wenn ich an Sex oder Nacktheit denke, kommt zuerst ein Gefühl von "nicht gut genug".</p>
+          <div class="scale" data-q="q8">
+            <button onclick="selectScale('q8',0,this)">stimmt<br>gar nicht</button>
+            <button onclick="selectScale('q8',1,this)">stimmt<br>eher nicht</button>
+            <button onclick="selectScale('q8',2,this)">stimmt<br>eher</button>
+            <button onclick="selectScale('q8',3,this)">stimmt<br>total</button>
+          </div>
+        </div>
+        <div class="statement">
+          <p>Ich vermeide es, mich selbst zu berühren, weil ich Angst habe, dabei ertappt zu werden, selbst wenn niemand da ist.</p>
+          <div class="scale" data-q="q9">
+            <button onclick="selectScale('q9',0,this)">stimmt<br>gar nicht</button>
+            <button onclick="selectScale('q9',1,this)">stimmt<br>eher nicht</button>
+            <button onclick="selectScale('q9',2,this)">stimmt<br>eher</button>
+            <button onclick="selectScale('q9',3,this)">stimmt<br>total</button>
+          </div>
+        </div>
+        <p class="kompass-error" id="err-3"></p>
+        <button class="cta-btn" id="next-3" disabled onclick="showResult()">Mein Ergebnis ansehen</button>
+      </div>
+
+      <div class="kstep" data-step="4">
+        <p class="result-type">Dein Lust-Profil</p>
+        <div class="profile">
+          <div class="profile-row">
+            <div class="plabel"><span>Körperzugang</span><span id="score-koerper-label"></span></div>
+            <div class="ptrack"><div class="pfill" id="score-koerper-bar" style="width:0%;"></div></div>
+          </div>
+          <div class="profile-row">
+            <div class="plabel"><span>Eigene Stimme</span><span id="score-stimme-label"></span></div>
+            <div class="ptrack"><div class="pfill" id="score-stimme-bar" style="width:0%;"></div></div>
+          </div>
+          <div class="profile-row">
+            <div class="plabel"><span>Scham</span><span id="score-scham-label"></span></div>
+            <div class="ptrack"><div class="pfill" id="score-scham-bar" style="width:0%;"></div></div>
+          </div>
+        </div>
+        <p class="result-headline" id="result-headline"></p>
+        <p class="result-text" id="result-text"></p>
+        <div class="expert-note">
+          <span class="expert-tag">Von Katja, persönlich</span>
+          <p id="expert-note-text"></p>
+        </div>
+        <p class="result-lede" id="result-lede"></p>
+        <a href="#" id="result-cta" class="result-cta" target="_blank" rel="noopener">Jetzt "Ungezähmte Weiblichkeit" hören (33 €)</a>
+        <button class="restart" onclick="restart()">Kompass noch einmal starten</button>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="footer-links">
-      <a href="impressum.html">Impressum</a>
-      <span>Â·</span>
-      <a href="datenschutz.html">Datenschutz</a>
-    </div>
-    <div>Â© 2026 SeelenRevolte Â· Katja Borasch</div>
-    <div style="margin-top:6px;font-size:0.7rem;opacity:0.4;">Fotos: Franziska Nehmer</div>
-  </footer>
+<footer>
+  <div class="wrap">
+    <p>© SeelenRevolte · Katja Borasch · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></p>
+  </div>
+</footer>
 
-  <script>
-    // API-Key wird einmalig im Browser gespeichert â€“ nie auf GitHub
-    function getKey() { return localStorage.getItem("sr_lk_key") || ""; }
-    function saveKey(k) { localStorage.setItem("sr_lk_key", k); }
-    const ANTHROPIC_API_KEY = getKey();
+<script>
+  const state = {q1:null,q2:null,q3:null,q4:null,q5:null,q6:null,q7:null,q8:null,q9:null};
+  const groups = {1:['q1','q2','q3'], 2:['q4','q5','q6'], 3:['q7','q8','q9']};
 
-    const SYSTEM_PROMPT = `# Der Lust-Kompass â€“ System-Prompt
-### Version: MiniKurs-Funnel | Ziel: â€žWieder Frau sein dÃ¼rfen"
-
-Du bist der Lust-Kompass von Katja Borasch / SeelenRevolte â€“ ein einfÃ¼hlsames, tiefes Diagnose-Tool fÃ¼r Frauen zwischen 38 und 58, die sich in den Wechseljahren fremd in ihrem eigenen KÃ¶rper fÃ¼hlen und sich wÃ¼nschen, Lust, Lebensfreude und erfÃ¼llte SexualitÃ¤t zurÃ¼ckzugewinnen.
-
-Deine Aufgabe: Erkenne durch eine individuelle Analyse, welcher der 5 Lust-Blockade-Typen diese Frau ist â€“ und zeige ihr am Ende klar und liebevoll, dass der Mini-Kurs â€žWieder Frau sein dÃ¼rfen" genau die Antwort auf ihre spezifische Blockade ist.
-
-Folge zwingend dieser Prozessreihenfolge: Datenerhebung â†’ Interne Analyse â†’ Adaptive Fragerunde mit Spiegelung â†’ Gesamtauswertung â†’ Abschlussbericht mit Blockade-Typ + MiniKurs-CTA
-
-Empfehlungen und der Blockade-Typ werden ausschlieÃŸlich ganz am Ende genannt â€“ nie frÃ¼her.
-
-## Die 5 Lust-Blockade-Typen (intern â€“ niemals als Bezeichnung nach auÃŸen geben)
-
-Typ 1 â€“ Die Scham-Blockade: Sie hat gelernt, dass Lust und SexualitÃ¤t gefÃ¤hrlich, schmutzig oder unangemessen sind. Kern-Wunsch: Endlich dÃ¼rfen.
-
-Typ 2 â€“ Die KÃ¶rper-Entfremdungs-Blockade: Sie fÃ¼hlt sich fremd im eigenen KÃ¶rper. Die Wechseljahre haben ihn verÃ¤ndert. Kern-Wunsch: Wieder zu Hause im eigenen KÃ¶rper sein.
-
-Typ 3 â€“ Die Kontroll-Blockade: Sie funktioniert perfekt â€“ fÃ¼r alle. Lust braucht Hingabe â€“ und Hingabe fÃ¼hlt sich gefÃ¤hrlich an. Kern-Wunsch: Einmal nicht steuern mÃ¼ssen. Einfach sein.
-
-Typ 4 â€“ Die Verbindungs-Blockade: Sie und ihr Partner sind Alltag. Keine echte Verbindung mehr. Kern-Wunsch: Wieder wirklich berÃ¼hrt werden â€“ innen und auÃŸen.
-
-Typ 5 â€“ Die IdentitÃ¤ts-Blockade: Sie weiÃŸ nicht mehr, wer sie ist, wenn sie nicht Mutter, Partnerin oder FunktionstrÃ¤gerin ist. Kern-Wunsch: Sich selbst wiederfinden. Wieder Frau sein dÃ¼rfen.
-
-## Ablauf
-
-### 1. Willkommen & Datenerhebung
-BegrÃ¼ÃŸe die Frau warm und einladend. ErklÃ¤re kurz, was sie erwartet. Frage nach: Name (Vorname), Geburtsdatum, Geburtszeit (falls bekannt), Geburtsort. Nutze diese Daten intern. Gib keine Chartbegriffe oder Typenbezeichnungen nach auÃŸen.
-
-### 2. Interne Komplettanalyse (unsichtbar)
-Human Design, Astrologie (Mond, Venus, Mars, Pluto, HÃ¤user 4/7/8), Gene Keys â€“ nur zur Individualisierung. Nichts davon erscheint im GesprÃ¤ch.
-
-### 3. Adaptive Fragerunde (max. 5 Fragen)
-Vor jeder neuen Frage: kreative, empathische Spiegelung (Chartdaten + Antwort). Dann die nÃ¤chste adaptive Frage. Themen: Weiblichkeit, KÃ¶rperverÃ¤nderungen, Lust/SexualitÃ¤t, WÃ¼nsche, innere Grenzen.
-
-### 4. Interne Gesamtauswertung (unsichtbar)
-Finaler Blockade-Typ bestimmen.
-
-### 5. Abschlussbericht
-Emotionaler FlieÃŸtext, ca. 900â€“1.100 WÃ¶rter. Kreative Ãœberschriften. Warm, direkt, duzend, weiblich, tief. Mit Metaphern und Emojis.
-
-Pflicht-Bausteine:
-- Bildhafte individuelle Einleitung (Metapher)
-- Was in ihr steckt â€“ ihre Essenz
-- Das Muster, das sie zurÃ¼ckhÃ¤lt (Blockade-Typ bildhaft, ohne Benennung)
-- Energiegeber & was sie kostet
-- Was mÃ¶glich ist â€“ die Einladung
-- CTA: Kurs-Name â€žWieder Frau sein dÃ¼rfen", Lust-Revolte-Methode, 60 Minuten, kein Gruppenformat, privater Raum. Link: https://seelenrevolte.de/wieder-frau-sein
-
-## Grundregeln
-- Empfehlungen nur im Abschlussbericht
-- Keine Chartbegriffe oder Diagnosevokabular nach auÃŸen
-- Jede Spiegelung individuell
-- Die Frau soll sich gesehen fÃ¼hlen, nicht analysiert
-- Ton: klÃ¼gste, wÃ¤rmste Freundin â€“ die auch Therapeutin ist`;
-
-    let chatHistory = [];
-
-    const startScreen = document.getElementById("start-screen");
-    const messagesEl  = document.getElementById("messages");
-    const typingEl    = document.getElementById("typing");
-    const inputBar    = document.getElementById("input-bar");
-    const chatInput   = document.getElementById("chat-input");
-    const sendBtn     = document.getElementById("send-btn");
-    const apiNotice   = document.getElementById("api-key-notice");
-
-    document.getElementById("start-btn").addEventListener("click", () => {
-      const key = getKey();
-      if (!key) {
-        const entered = prompt("Einmaliger Setup (nur du siehst das):\nBitte deinen Anthropic API-Key eingeben:");
-        if (!entered || !entered.trim()) return;
-        saveKey(entered.trim());
-      }
-      startScreen.style.display = "none";
-      messagesEl.style.display  = "flex";
-      inputBar.style.display    = "flex";
-      send("Hallo, ich mÃ¶chte den Lust-Kompass machen.", true);
-    });
-
-    sendBtn.addEventListener("click", () => {
-      const txt = chatInput.value.trim();
-      if (!txt) return;
-      chatInput.value = "";
-      send(txt, false);
-    });
-
-    chatInput.addEventListener("keydown", e => {
-      if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault();
-        sendBtn.click();
-      }
-    });
-
-    async function send(userText, hidden) {
-      chatHistory.push({ role: "user", content: userText });
-
-      if (!hidden) addBubble("user", userText);
-
-      sendBtn.disabled = true;
-      chatInput.disabled = true;
-      typingEl.style.display = "block";
-      scrollBottom();
-
-      try {
-        const res = await fetch("https://api.anthropic.com/v1/messages", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "x-api-key": getKey(),
-            "anthropic-version": "2023-06-01",
-            "anthropic-dangerous-direct-browser-access": "true"
-          },
-          body: JSON.stringify({
-            model: "claude-sonnet-4-20250514",
-            max_tokens: 1500,
-            system: SYSTEM_PROMPT,
-            messages: chatHistory
-          })
-        });
-
-        const data = await res.json();
-        const reply = data.content?.find(b => b.type === "text")?.text
-          || "Es gab einen Fehler. Bitte versuche es erneut.";
-
-        chatHistory.push({ role: "assistant", content: reply });
-        typingEl.style.display = "none";
-        addBubble("assistant", reply);
-      } catch (e) {
-        typingEl.style.display = "none";
-        addBubble("assistant", "Verbindungsfehler. Bitte versuche es erneut.");
-      }
-
-      sendBtn.disabled = false;
-      chatInput.disabled = false;
-      chatInput.focus();
-      scrollBottom();
+  function renderProgress(done){
+    const el = document.getElementById('progress');
+    el.innerHTML = '';
+    for(let i=1;i<=3;i++){
+      const d = document.createElement('span');
+      d.className = 'dot' + (i <= done ? ' done' : '');
+      el.appendChild(d);
     }
+  }
+  renderProgress(0);
 
-    function addBubble(role, text) {
-      const row = document.createElement("div");
-      row.className = `msg-row ${role}`;
+  function showStep(n){
+    document.querySelectorAll('.kstep').forEach(s => s.classList.remove('active'));
+    document.querySelector('.kstep[data-step="'+n+'"]').classList.add('active');
+  }
 
-      if (role === "assistant") {
-        const avatar = document.createElement("div");
-        avatar.className = "msg-avatar";
-        avatar.textContent = "ðŸ§­";
-        row.appendChild(avatar);
-      }
+  function submitToActiveCampaign(firstname, email){
+    const params = new URLSearchParams();
+    params.set('u', '11');
+    params.set('f', '11');
+    params.set('s', '');
+    params.set('c', '0');
+    params.set('m', '0');
+    params.set('act', 'sub');
+    params.set('v', '2');
+    params.set('or', 'd922e488-aad7-4903-9b36-9dec87f0360b');
+    params.set('firstname', firstname);
+    params.set('email', email);
+    params.set('jsonp', 'true');
+    const script = document.createElement('script');
+    script.src = 'https://seelenrevolte.activehosted.com/proc.php?' + params.toString();
+    document.head.appendChild(script);
+  }
 
-      const bubble = document.createElement("div");
-      bubble.className = "msg-bubble";
-      bubble.innerHTML = formatText(text);
-      row.appendChild(bubble);
-
-      messagesEl.appendChild(row);
-      scrollBottom();
+  function goToQuestions(){
+    const name = document.getElementById('fname').value.trim();
+    const email = document.getElementById('femail').value.trim();
+    const errEl = document.getElementById('err-0');
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if(!name || !emailOk){
+      errEl.textContent = 'Bitte Vorname und eine gültige E-Mail-Adresse eintragen.';
+      return;
     }
+    errEl.textContent = '';
+    submitToActiveCampaign(name, email);
+    renderProgress(0);
+    showStep(1);
+  }
 
-    function formatText(text) {
-      return text
-        .split("\n")
-        .map(line => {
-          if (/^#{1,3} /.test(line)) {
-            return `<h3>${line.replace(/^#+\s/, "")}</h3>`;
-          }
-          if (line === "") return `<p style="margin:0.4rem 0"></p>`;
-          const html = line.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
-          return `<p>${html}</p>`;
-        })
-        .join("");
+  function selectScale(q, value, btn){
+    state[q] = value;
+    btn.parentElement.querySelectorAll('button').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    const group = Math.ceil(parseInt(q.slice(1), 10) / 3);
+    checkGroupComplete(group);
+  }
+
+  function checkGroupComplete(group){
+    const complete = groups[group].every(id => state[id] !== null);
+    const btn = document.getElementById('next-' + group);
+    if(btn) btn.disabled = !complete;
+  }
+
+  function goToStep(n, doneGroups){
+    renderProgress(doneGroups);
+    showStep(n);
+  }
+
+  function setBar(key, score){
+    const pct = Math.round((score / 9) * 100);
+    document.getElementById('score-' + key + '-bar').style.width = pct + '%';
+    const desc = score <= 3 ? 'kaum blockiert' : score <= 6 ? 'spürbar blockiert' : 'stark blockiert';
+    document.getElementById('score-' + key + '-label').textContent = score + '/9 · ' + desc;
+    return score;
+  }
+
+  const PRODUCT_URL = 'https://myablefy.com/s/seelenrevolte-katja-borasch/ungezaehmte-weiblichkeit-die-gefuehrte-audio-journey-die-dich-in-45-minuten-zurueck-zu-dir-bringt-04ab746f';
+
+  const TYPES = {
+    koerper: {
+      headline: 'Dein stärkstes Muster: Die Fremde im eigenen Körper',
+      text: 'Dein größter Block liegt gerade im Zugang zu deinem eigenen, sich verändernden Körper. Die Wechseljahre verschieben etwas Reales, aber dir hat nie jemand gezeigt, wie du in diesem neuen Körper wieder ankommst und ihn wieder als deinen erkennst. Dein nächster Schritt ist, einmal bewusst hinzuspüren, ohne zu bewerten. Du musst gerade nichts verändern, nur wahrnehmen, was wirklich da ist.',
+      expert: 'Diesen Weg zurück in einen veränderten Körper kenne ich gut. Als Heilpraktikerin für Psychotherapie begleite ich Frauen genau dorthin, Schritt für Schritt, mit meiner Lust-Revolte-Methode. Das ist bei mir keine Theorie, sondern tägliche Praxis.',
+      bridge: 'Ein guter erster Schritt dafür ist die Audio-Journey "Ungezähmte Weiblichkeit". Sie dauert 45 Minuten und führt dich zurück in deinen Körper.'
+    },
+    stimme: {
+      headline: 'Dein stärkstes Muster: Die Funktionierende',
+      text: 'Dein größter Block liegt darin, wie sehr du für alle da bist und wie wenig für dich selbst. Du hast verlernt, deine eigenen Wünsche laut auszusprechen, weil du Angst hast, zu viel zu verlangen. Dein nächster Schritt ist, dir heute eine einzige eigene Frage zu stellen: Was will eigentlich ich? Nimm sie ernst.',
+      expert: 'Frauen, die sich selbst im Dienen verloren haben, wieder zu ihrer eigenen Stimme zu bringen, das mache ich seit Jahren als Transformationstherapeutin. Das ist kein Motivationsspruch, sondern ein konkreter Weg zurück zu dir.',
+      bridge: 'Ein guter erster Schritt dafür ist die Audio-Journey "Ungezähmte Weiblichkeit". Sie dauert 45 Minuten und gehört ganz dir allein, ohne dass jemand etwas von dir braucht.'
+    },
+    scham: {
+      headline: 'Dein stärkstes Muster: Die Beschämte',
+      text: 'Dein größter Block ist eine Scham, die du mit niemandem teilst, nicht einmal mit deiner besten Freundin, und die dich mehr zurückhält als dein Körper selbst. Dein nächster Schritt ist, einen einzigen Satz, den du dir insgeheim über dich sagst, einmal laut auszusprechen, vor dir selbst, in einem Raum, der dich nicht bewertet.',
+      expert: 'Scham löst sich nicht durchs Drüber-Reden allein, das weiß ich aus der Arbeit mit vielen Frauen. Mit Körperarbeit und gezielter Scham-Auflösung, meiner Lust-Revolte-Methode, hole ich dich aus genau diesem Muster heraus.',
+      bridge: 'Ein guter erster Schritt dafür ist die Audio-Journey "Ungezähmte Weiblichkeit". Sie dauert 45 Minuten, niemand sieht zu und niemand hört mit.'
     }
+  };
 
-    function scrollBottom() {
-      setTimeout(() => {
-        const wrap = document.getElementById("kompass-wrap");
-        wrap.scrollIntoView({ behavior: "smooth", block: "end" });
-      }, 80);
-    }
+  function showResult(){
+    const scores = {
+      koerper: (state.q1 + state.q2 + state.q3),
+      stimme: (state.q4 + state.q5 + state.q6),
+      scham: (state.q7 + state.q8 + state.q9)
+    };
+    setBar('koerper', scores.koerper);
+    setBar('stimme', scores.stimme);
+    setBar('scham', scores.scham);
 
-    // smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener("click", e => {
-        const target = document.querySelector(a.getAttribute("href"));
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: "smooth" });
-        }
-      });
-    });
-  </script>
-</body>
-</html>
+    let dominant = 'koerper';
+    ['koerper','stimme','scham'].forEach(k => { if(scores[k] > scores[dominant]) dominant = k; });
+
+    const t = TYPES[dominant];
+    document.getElementById('result-headline').textContent = t.headline;
+    document.getElementById('result-text').textContent = t.text;
+    document.getElementById('expert-note-text').textContent = t.expert;
+    document.getElementById('result-lede').textContent = t.bridge;
+    document.getElementById('result-cta').href = PRODUCT_URL;
+
+    renderProgress(3);
+    showStep(4);
+  }
+
+  function restart(){
+    Object.keys(state).forEach(k => state[k] = null);
+    document.querySelectorAll('.scale button').forEach(b => b.classList.remove('selected'));
+    document.querySelectorAll('[id^="next-"]').forEach(b => b.disabled = true);
+    document.getElementById('fname').value = '';
+    document.getElementById('femail').value = '';
+    renderProgress(0);
+    showStep(0);
+    document.getElementById('kompass').scrollIntoView({behavior:'smooth'});
+  }
+
+  // confession reveal on scroll
+  const lines = document.querySelectorAll('.confession-line');
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+    }, {threshold:0.3});
+    lines.forEach(l => io.observe(l));
+  } else {
+    lines.forEach(l => l.classList.add('visible'));
+  }
+</script>
